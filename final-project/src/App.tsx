@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Nav />
-      <main>
+      <main className="bg-slate-300 p-3">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/SideEffect" element={<SideEffect />} />
