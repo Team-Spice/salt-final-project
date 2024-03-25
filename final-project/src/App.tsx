@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import SideEffect from "./components/SideEffect";
 import FirstChart from "./components/FirstChart";
 import MainChart from "./components/MainChart";
-import { mockedProduct } from "./mockData/mock-product";
+import { mockedChartData, mockedProduct } from "./mockData/mock-product";
 import { useState } from "react";
 
 function App() {
@@ -22,9 +22,9 @@ function App() {
       <main className="bg-slate-300 p-3">
         <Routes>
           <Route path="/" element={<Home product={product} handleOnClick={handleSetProduct} />} />
-          <Route path="/SideEffect" element={<SideEffect />} />
-          <Route path="/FirstChart" element={<FirstChart />} />
-          <Route path="/MainChart" element={<MainChart />} />
+          <Route path="/SideEffect" element={<SideEffect sideEffects={product?.sideEffects} />} />
+          <Route path="/FirstChart" element={<FirstChart product={product} />} />
+          <Route path="/MainChart" element={<MainChart chartData={mockedChartData} />} />
         </Routes>
       </main>
     </>

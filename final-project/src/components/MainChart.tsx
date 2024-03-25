@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
+import { SideEffects } from "../types";
 
-const MainChart = () => {
+const MainChart = ( { chartData }: { chartData: SideEffects } ) => {
+
+  const { medicament, sideEffects } = chartData;
+
   return (
     <>
-      <p>PLACEHOLDER FOR CHART</p>
+    <p>Side effects for {medicament}</p>
+      {sideEffects.map(({name, amount}) => <p key={name}>{name}, {amount} people</p>)}
       <Link to="/">
         <button>Report another side effect</button>
       </Link>
