@@ -1,10 +1,17 @@
-import reactLogo from '../assets/react.svg'
+import { Link } from "react-router-dom";
+import reactLogo from "../assets/react.svg";
 
 const Nav = () => {
-  return <nav className='navbar'>
-    <img src={reactLogo} alt="logo" />
-    <button>Home</button>
-  </nav>
-}
+  return (
+    <nav className="navbar">
+      <Link to="/">
+        <img src={reactLogo} alt="logo" />
+      </Link>
+      <Link to="/">
+        <button>Home</button>
+      </Link>
+    </nav>
+  );
+};
 
 export default Nav;
