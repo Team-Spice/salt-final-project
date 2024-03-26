@@ -24,7 +24,11 @@ public class Controller {
 
     @GetMapping("/product")
     public ResponseEntity<Product> getProduct() {
-        return ResponseEntity.ok(this.service.findAll().get(1));
+        try {
+            return ResponseEntity.ok(this.service.findAll().get(1));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 //    @GetMapping("/listProducts")
