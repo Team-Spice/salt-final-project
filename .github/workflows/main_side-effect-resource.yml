@@ -11,6 +11,10 @@ on:
       - server-final-project/**
       - .github/workflows/main_side-effect-resource.yml
   workflow_dispatch:
+env:
+  AZURE_DB_USER: ${{secrets.AZURE_DB_USER}}
+  AZURE_DB_PWD: ${{secrets.AZURE_DB_PWD}}
+  AZURE_DB_CONNECTION_STRING: ${{secrets.AZURE_DB_CONNECTION_STRING}}
 
 jobs:
   build:
