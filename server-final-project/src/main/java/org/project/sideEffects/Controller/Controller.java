@@ -1,6 +1,6 @@
 package org.project.sideEffects.Controller;
 
-//import org.project.sideEffects.Models.Product;
+import org.project.sideEffects.Models.Product;
 import org.project.sideEffects.Service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,10 +22,10 @@ public class Controller {
         this.service = service;
     }
 
-//    @GetMapping("/product")
-//    public ResponseEntity<Product> getProduct() {
-//        return ResponseEntity.ok(this.service.findAll().get(1));
-//    }
+    @GetMapping("/product")
+    public ResponseEntity<Product> getProduct() {
+        return ResponseEntity.ok(this.service.findAll().get(1));
+    }
 
 //    @GetMapping("/listProducts")
 //    public ResponseEntity<List<Product>> getListOfProduct() {
