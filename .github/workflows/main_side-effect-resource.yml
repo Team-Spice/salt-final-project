@@ -26,8 +26,8 @@ jobs:
 
       - name: Build with Maven
         run: |
-        cd server-final-project 
-        mvn clean install
+          cd server-final-project 
+          mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
