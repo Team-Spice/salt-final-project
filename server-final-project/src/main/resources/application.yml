@@ -1,0 +1,25 @@
+#spring.application.name=sideeffects
+spring:
+  output:
+    ansi:
+      enabled: always
+  sql:
+    init:
+      platform: mssql-jdbc
+      mode: always
+  datasource:
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: ${AZURE_DB_USER}
+    password: ${AZURE_DB_PWD}
+    url: ${AZURE_DB_CONNECTION_STRING}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    defer-datasource-initialization: true
+
+#  cloud:
+#    azure:
+#      storage:
+#        blob:
+#          connection-string: ${AZURE_BLOB_CONNECTION_STRING}

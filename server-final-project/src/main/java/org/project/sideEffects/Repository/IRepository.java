@@ -1,8 +1,9 @@
 package org.project.sideEffects.Repository;
 
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.project.sideEffects.Models.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
-//public interface IRepository extends JpaProperties<> {
-//}
+@Repository
+public interface IRepository extends JpaRepository<Product, Long> {
+}
