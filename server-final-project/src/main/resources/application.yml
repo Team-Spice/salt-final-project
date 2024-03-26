@@ -10,8 +10,11 @@ spring:
   datasource:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: ${AZURE_DB_USER}
+#    username: saltdb@canine-cloud
     password: ${AZURE_DB_PWD}
+#    password: saltsecret1!
     url: ${AZURE_DB_CONNECTION_STRING}
+#    url: jdbc:sqlserver://canine-cloud.database.windows.net:1433;database=salt
   jpa:
     hibernate:
       ddl-auto: create-drop
