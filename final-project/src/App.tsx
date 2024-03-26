@@ -6,24 +6,22 @@ import { Route, Routes } from "react-router-dom";
 import SideEffect from "./components/SideEffect";
 import FirstChart from "./components/FirstChart";
 import MainChart from "./components/MainChart";
-import { mockedChartData, mockedProduct } from "./mockData/mock-product";
-import { useState } from "react";
+import { mockedChartData } from "./mockData/mock-product";
+import { useEffect, useState } from "react";
+import { getProduct } from "./api";
 
 function App() {
   const [product, setProduct] = useState<Product>();
 
-  const handleSetProduct = () => {
-    setProduct(mockedProduct);
-  };
+  const fetchProduct = async () => {
+    const newProduct = await getProduct();
+    console.log(newProduct);
+    setProduct(newProduct);
+  }
 
-  const fetchToServer = async () => {
-    const fetchApi = await fetch(
-      "https://side-effect-resource.azurewebsites.net/api/product"
-    );
-    const data = await fetchApi.text();
-    console.log("data" + data);
-  };
-  fetchToServer();
+  useEffect(() => {
+    fetchProduct();
+  }, [])
 
   return (
     <>
@@ -33,7 +31,7 @@ function App() {
           <Route
             path="/"
             element={
-              <Home product={product} handleOnClick={handleSetProduct} />
+              <Home product={product} handleOnClick={fetchProduct} />
             }
           />
           <Route

@@ -8,11 +8,6 @@ type HomeProps = {
 }
 
 const Home = ({ product, handleOnClick }: HomeProps) => {
-  
-
-  // const handleOnCLick = () => {
-  //   setProduct(mockedProduct);
-  // }
 
   return (
     <>
