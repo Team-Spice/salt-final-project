@@ -27,8 +27,8 @@ public class Controller {
         return ResponseEntity.ok(this.service.findAll().get(1));
     }
 
-    @GetMapping("/listProducts")
-    public ResponseEntity<List<Product>> getListOfProduct() {
-        return ResponseEntity.ok(this.service.findAll());
-    }
+//    @GetMapping("/listProducts")
+//    public ResponseEntity<List<Product>> getListOfProduct() {
+//        return ResponseEntity.ok(this.service.findAll());
+//    }
 }
