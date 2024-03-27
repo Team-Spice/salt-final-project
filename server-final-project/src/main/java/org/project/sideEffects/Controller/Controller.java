@@ -32,13 +32,24 @@ public class Controller {
 
     @GetMapping("/side-effect/{productId}/{sideEffectId}")
     public ResponseEntity<Integer> getAllSideEffects(
-            @PathVariable long productId, @
-            PathVariable long sideEffectId) {
+            @PathVariable long productId,
+            @PathVariable long sideEffectId) {
         try {
             int sideEffectCount = service.findAllSideEffects(productId, sideEffectId);
             return ResponseEntity.ok(sideEffectCount);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/side-effect/{productId}/{sideEffectId}")
+    public ResponseEntity<Void> saveSideEffect(@PathVariable long productId,
+                                               @PathVariable long sideEffectId) {
+        try {
+            service.save(productId, sideEffectId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 

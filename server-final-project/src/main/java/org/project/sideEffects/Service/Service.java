@@ -8,6 +8,7 @@ import org.project.sideEffects.Repository.ReportRepo;
 import org.project.sideEffects.Repository.SideEffectRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @org.springframework.stereotype.Service
 public class Service {
@@ -39,5 +40,18 @@ public class Service {
         List<Report> report = reportRepo.findAllByProductAndSideEffect(product, sideEffect);
 
         return report.size();
+    }
+
+    public void save(long pId, long seId) {
+        Optional<Product> product = productRepo.findById(pId);
+        Optional<SideEffect> sideEffect = sideEffectRepo.findById(seId);
+
+        if(product.isPresent() && sideEffect.isPresent()) {
+            Product product1 = product.get();
+            SideEffect sideEffect1 = sideEffect.get();
+
+            product1.addSideEffect(sideEffect1);
+            productRepo.save(product1);
+        }
     }
 }

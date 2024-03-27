@@ -18,7 +18,7 @@ public class Product {
     private String brand;
     @Column
     private String description;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<SideEffect> sideEffectList;
 
     public Product(String name, String brand, String description, List<SideEffect> sideEffectList) {
@@ -31,6 +31,9 @@ public class Product {
     public Product() {
     }
 
+    public void addSideEffect(SideEffect sideEffect){
+        sideEffectList.add(new SideEffect(sideEffect.getName()));
+    }
     public Long getId() {
         return id;
     }
