@@ -21,11 +21,16 @@ public class Service {
         this.sideEffectRepo = sideEffectRepo;
     }
 
+    public Product getProduct(long id) {
+        return productRepo.findById(id).orElseThrow(() -> (new IllegalArgumentException("Product with id: " + id + " not found")));
+    }
+
     public List<Product> findAll() {
         return productRepo.findAll();
     }
 
-    public List<SideEffect> findAllSideEffects() {
-        return sideEffectRepo.findAll();
+    public List<SideEffect> findAllSideEffects(long id) {
+        Product product = productRepo.findById(id).orElseThrow(() -> (new IllegalArgumentException("Side effect with id: " + id + " not found")));
+        return product.getSideEffectList();
     }
 }

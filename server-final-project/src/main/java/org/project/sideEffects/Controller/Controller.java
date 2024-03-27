@@ -4,10 +4,7 @@ import org.project.sideEffects.Models.Product;
 import org.project.sideEffects.Models.SideEffect;
 import org.project.sideEffects.Service.Service;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,26 +20,28 @@ public class Controller {
         this.service = service;
     }
 
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable long id) {
+        try {
+            Product product = service.getProduct(id);
+            return ResponseEntity.ok(product);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/side-effect/{id}")
+    public ResponseEntity<List<SideEffect>> getAllSideEffects(@PathVariable long id) {
+        try {
+            List<SideEffect> sideEffectList = service.findAllSideEffects(id);
+            return ResponseEntity.ok(sideEffectList);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/product")
-    public ResponseEntity<Product> getProduct() {
-        try {
-            return ResponseEntity.ok(this.service.findAll().get(1));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<Product>> getListOfProduct() {
+        return ResponseEntity.ok(this.service.findAll());
     }
-
-    @GetMapping("/side-effect")
-    public ResponseEntity<List<SideEffect>> getAllSideEffects() {
-        try {
-            return ResponseEntity.ok(service.findAllSideEffects());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-//    @GetMapping("/listProducts")
-//    public ResponseEntity<List<Product>> getListOfProduct() {
-//        return ResponseEntity.ok(this.service.findAll());
-//    }
 }
