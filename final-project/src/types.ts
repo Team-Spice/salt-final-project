@@ -5,17 +5,17 @@ export type Product = {
   name: string;
   brand: string;
   description: string;
-  sideEffects: string[];
+  sideEffectList: SideEffectType[];
 }
 
-type SideEffectType = {
+export type SideEffectType = {
+  id: number;
   name: string;
-  amount: number;
 }
 
 export type SideEffects = {
   medicament: string;
-  sideEffects: SideEffectType[];
+  sideEffectList: SideEffectType[];
 }
 
 export type SelectFormEvent = FormEvent<HTMLFormElement> & {

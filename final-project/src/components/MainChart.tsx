@@ -3,12 +3,12 @@ import { SideEffects } from "../types";
 
 const MainChart = ( { chartData }: { chartData: SideEffects } ) => {
 
-  const { medicament, sideEffects } = chartData;
+  const { medicament, sideEffectList } = chartData;
 
   return (
     <>
     <p>Side effects for {medicament}</p>
-      {sideEffects.map(({name, amount}) => <p key={name}>{name}, {amount} people</p>)}
+      {sideEffectList.map(({name}) => <p key={name}>{name}, people</p>)}
       <Link to="/">
         <button>Report another side effect</button>
       </Link>
