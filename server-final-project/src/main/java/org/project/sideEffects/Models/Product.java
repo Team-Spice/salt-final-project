@@ -2,6 +2,8 @@ package org.project.sideEffects.Models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -16,11 +18,14 @@ public class Product {
     private String brand;
     @Column
     private String description;
+    @ManyToMany
+    private List<SideEffect> sideEffectList;
 
-    public Product(String name, String brand, String description) {
+    public Product(String name, String brand, String description, List<SideEffect> sideEffectList) {
         this.name = name;
         this.brand = brand;
         this.description = description;
+        this.sideEffectList = sideEffectList;
     }
 
     public Product() {
@@ -42,4 +47,7 @@ public class Product {
         return description;
     }
 
+    public List<SideEffect> getSideEffectList() {
+        return sideEffectList;
+    }
 }
