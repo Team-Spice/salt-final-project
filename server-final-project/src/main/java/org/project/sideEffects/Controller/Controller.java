@@ -30,11 +30,13 @@ public class Controller {
         }
     }
 
-    @GetMapping("/side-effect/{id}")
-    public ResponseEntity<List<SideEffect>> getAllSideEffects(@PathVariable long id) {
+    @GetMapping("/side-effect/{productId}/{sideEffectId}")
+    public ResponseEntity<Integer> getAllSideEffects(
+            @PathVariable long productId, @
+            PathVariable long sideEffectId) {
         try {
-            List<SideEffect> sideEffectList = service.findAllSideEffects(id);
-            return ResponseEntity.ok(sideEffectList);
+            int sideEffectCount = service.findAllSideEffects(productId, sideEffectId);
+            return ResponseEntity.ok(sideEffectCount);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

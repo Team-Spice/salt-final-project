@@ -30,9 +30,14 @@ public class Service {
         return productRepo.findAll();
     }
 
-    public List<SideEffect> findAllSideEffects(long id) {
-        Product product = productRepo.findById(id).orElseThrow(() -> (new IllegalArgumentException("Side effect with id: " + id + " not found")));
-        Report report = reportRepo.findByProductAndSideEffect(product, product.getSideEffectList().get(0));
-        return product.getSideEffectList();
+    public int findAllSideEffects(long pId, long seId) {
+        Product product = productRepo.findById(pId).orElseThrow(() -> (new IllegalArgumentException("Side effect with id: " + pId + " not found")));
+        SideEffect sideEffect = product.getSideEffectList().stream()
+                .filter(effect -> effect.getId() == seId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Derp"));
+        List<Report> report = reportRepo.findAllByProductAndSideEffect(product, sideEffect);
+
+        return report.size();
     }
 }
