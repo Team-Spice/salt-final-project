@@ -6,7 +6,7 @@ spring:
   sql:
     init:
       platform: mssql-jdbc
-      mode: never
+      mode: always
   datasource:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: ${AZURE_DB_USER}

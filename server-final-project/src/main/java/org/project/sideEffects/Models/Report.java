@@ -8,14 +8,13 @@ public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private long id;
 
-    @Column
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 
-    @Column
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private SideEffect sideEffect;
 
     @Column

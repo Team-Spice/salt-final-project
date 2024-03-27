@@ -1,6 +1,7 @@
 package org.project.sideEffects.Controller;
 
 import org.project.sideEffects.Models.Product;
+import org.project.sideEffects.Models.SideEffect;
 import org.project.sideEffects.Service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +27,15 @@ public class Controller {
     public ResponseEntity<Product> getProduct() {
         try {
             return ResponseEntity.ok(this.service.findAll().get(1));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/side-effect")
+    public ResponseEntity<List<SideEffect>> getAllSideEffects() {
+        try {
+            return ResponseEntity.ok(service.findAllSideEffects());
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
