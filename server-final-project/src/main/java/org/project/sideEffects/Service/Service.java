@@ -1,6 +1,7 @@
 package org.project.sideEffects.Service;
 
 import org.project.sideEffects.Models.Product;
+import org.project.sideEffects.Models.Report;
 import org.project.sideEffects.Models.SideEffect;
 import org.project.sideEffects.Repository.ProductRepo;
 import org.project.sideEffects.Repository.ReportRepo;
@@ -31,6 +32,7 @@ public class Service {
 
     public List<SideEffect> findAllSideEffects(long id) {
         Product product = productRepo.findById(id).orElseThrow(() -> (new IllegalArgumentException("Side effect with id: " + id + " not found")));
+        Report report = reportRepo.findByProductAndSideEffect(product, product.getSideEffectList().get(0));
         return product.getSideEffectList();
     }
 }

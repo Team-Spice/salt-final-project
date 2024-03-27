@@ -36,7 +36,7 @@ const FirstChart = ({ productName, sideEffectName }: FirstChartProps) => {
   return (
     <>
       <p>
-        Thank you for submitting, n number of people have reported {sideEffectName} side
+        Thank you for submitting, n number of people have reported {sideEffectName} as a side
         effect for {productName}!
       </p>
       <p>INSERT CHART HERE</p>

@@ -14,15 +14,14 @@ type SideEffectProps = {
 }
 
 const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
-  // const navigate = useNavigate();
 
   const handleFormSubmit = (e: SelectFormEvent) => {
     e.preventDefault();
+    
     const { value } = e.target.sideEffectSelect;
     const sideEffect = sideEffects?.find((effect) => effect.name === value);
+    
     sideEffect && handleOnClick(sideEffect);
-    // console.log(e.target.sideEffectSelect.value);
-    // navigate("/FirstChart");
   };
 
   return (
