@@ -23,9 +23,10 @@ type SelectFormEvent = FormEvent<HTMLFormElement> & {
 type FirstChartProps = {
   productName: string | undefined;
   sideEffectName: string | undefined;
+  count: string | undefined;
 }
 
-const FirstChart = ({ productName, sideEffectName }: FirstChartProps) => {
+const FirstChart = ({ productName, sideEffectName, count }: FirstChartProps) => {
   const navigate = useNavigate();
 
   const handleSubmit = (e: SelectFormEvent) => {
@@ -36,7 +37,7 @@ const FirstChart = ({ productName, sideEffectName }: FirstChartProps) => {
   return (
     <>
       <p>
-        Thank you for submitting, n number of people have reported {sideEffectName} as a side
+        Thank you for submitting, {count} number of people have reported {sideEffectName} as a side
         effect for {productName}!
       </p>
       <p>INSERT CHART HERE</p>

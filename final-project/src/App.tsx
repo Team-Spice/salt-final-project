@@ -8,12 +8,13 @@ import FirstChart from "./components/FirstChart";
 import MainChart from "./components/MainChart";
 import { mockedChartData } from "./mockData/mock-product";
 import { useEffect, useState } from "react";
-import { getProductList } from "./api";
+import { getProductList, getSideEffectCount } from "./api";
 
 function App() {
   const [productList, setProductList] = useState<Product[]>([])
   const [product, setProduct] = useState<Product>();
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
+  const [affectedCount, setAffectedCount] = useState("");
 
   const navigate = useNavigate()
 
@@ -30,11 +31,16 @@ function App() {
     }
   }
 
-  const updateSideEffect = (selectedEffect: SideEffectType) => {
-    if (selectedEffect) {
-      setSideEffect(selectedEffect);
-      navigate("/FirstChart")
+  const updateSideEffect = async (selectedEffect: SideEffectType) => {
+    if (!(product && selectedEffect)) {
+      return;
     }
+
+    setSideEffect(selectedEffect);
+    const count = await getSideEffectCount(product?.id, selectedEffect.id)
+    setAffectedCount(count);
+    navigate("/FirstChart")
+
   }
 
   useEffect(() => {
@@ -58,7 +64,7 @@ function App() {
           />
           <Route
             path="/FirstChart"
-            element={<FirstChart productName={product?.name} sideEffectName={sideEffect?.name} />}
+            element={<FirstChart productName={product?.name} sideEffectName={sideEffect?.name} count={affectedCount} />}
           />
           <Route
             path="/MainChart"
