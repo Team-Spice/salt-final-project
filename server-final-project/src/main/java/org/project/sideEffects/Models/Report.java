@@ -1,5 +1,6 @@
 package org.project.sideEffects.Models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity

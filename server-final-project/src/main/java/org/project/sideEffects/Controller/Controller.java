@@ -1,7 +1,6 @@
 package org.project.sideEffects.Controller;
 
 import org.project.sideEffects.Models.Product;
-import org.project.sideEffects.Models.SideEffect;
 import org.project.sideEffects.Service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,16 +41,26 @@ public class Controller {
         }
     }
 
+//    @PostMapping("/side-effect/{productId}/{sideEffectId}")
     @PostMapping("/side-effect/{productId}/{sideEffectId}")
     public ResponseEntity<Void> saveSideEffect(@PathVariable long productId,
                                                @PathVariable long sideEffectId) {
         try {
-            service.save(productId, sideEffectId);
+            service.saveReport(productId, sideEffectId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
+
+//    @PostMapping("/side-effect/{productId}/{sideEffectId}")
+//    public ResponseEntity<Void> saveToReport(@PathVariable long productId,
+//                                             @PathVariable long sideEffectId){
+//        service.saveReport(productId, sideEffectId);
+//        return ResponseEntity.ok().build();
+//
+//    }
+
 
     @GetMapping("/product")
     public ResponseEntity<List<Product>> getListOfProduct() {
