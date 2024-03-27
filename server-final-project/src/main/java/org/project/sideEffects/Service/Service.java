@@ -1,16 +1,16 @@
 package org.project.sideEffects.Service;
 
 import org.project.sideEffects.Models.Product;
-import org.project.sideEffects.Repository.IRepository;
+import org.project.sideEffects.Repository.ProductRepo;
 
 import java.util.List;
 
 @org.springframework.stereotype.Service
 public class Service {
 
-    private final IRepository repo;
+    private final ProductRepo repo;
 
-    public Service (IRepository repo) {
+    public Service (ProductRepo repo) {
         this.repo = repo;
     }
 
