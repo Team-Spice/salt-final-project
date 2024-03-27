@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { Product } from "../types";
 import { FormEvent } from "react";
 
 const ageGroup = [
@@ -21,7 +20,12 @@ type SelectFormEvent = FormEvent<HTMLFormElement> & {
   }
 }
 
-const FirstChart = ({ product }: { product: Product | undefined }) => {
+type FirstChartProps = {
+  productName: string | undefined;
+  sideEffectName: string | undefined;
+}
+
+const FirstChart = ({ productName, sideEffectName }: FirstChartProps) => {
   const navigate = useNavigate();
 
   const handleSubmit = (e: SelectFormEvent) => {
@@ -32,8 +36,8 @@ const FirstChart = ({ product }: { product: Product | undefined }) => {
   return (
     <>
       <p>
-        Thank you for submitting, n number of people have reported this side
-        effect for {product?.name}!
+        Thank you for submitting, n number of people have reported {sideEffectName} side
+        effect for {productName}!
       </p>
       <p>INSERT CHART HERE</p>
       <p>Want to see more?</p>

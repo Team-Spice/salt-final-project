@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SideEffectType } from "../types";
 
 type SelectFormEvent = FormEvent<HTMLFormElement> & {
@@ -10,15 +10,19 @@ type SelectFormEvent = FormEvent<HTMLFormElement> & {
 
 type SideEffectProps = {
   sideEffects: SideEffectType[] | undefined;
+  handleOnClick: (effect: SideEffectType) => void;
 }
 
-const SideEffect = ({ sideEffects }: SideEffectProps) => {
-  const navigate = useNavigate();
+const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
+  // const navigate = useNavigate();
 
   const handleFormSubmit = (e: SelectFormEvent) => {
     e.preventDefault();
-    console.log(e.target.sideEffectSelect.value);
-    navigate("/FirstChart");
+    const { value } = e.target.sideEffectSelect;
+    const sideEffect = sideEffects?.find((effect) => effect.name === value);
+    sideEffect && handleOnClick(sideEffect);
+    // console.log(e.target.sideEffectSelect.value);
+    // navigate("/FirstChart");
   };
 
   return (

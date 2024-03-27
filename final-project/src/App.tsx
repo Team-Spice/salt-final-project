@@ -1,7 +1,7 @@
 import Nav from "./components/Nav";
 import "./App.css";
 import Home from "./components/Home";
-import { Product } from "./types";
+import { Product, SideEffectType } from "./types";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import SideEffect from "./components/SideEffect";
 import FirstChart from "./components/FirstChart";
@@ -13,6 +13,7 @@ import { getProductList } from "./api";
 function App() {
   const [productList, setProductList] = useState<Product[]>([])
   const [product, setProduct] = useState<Product>();
+  const [sideEffect, setSideEffect] = useState<SideEffectType>();
 
   const navigate = useNavigate()
 
@@ -26,6 +27,13 @@ function App() {
     if (selectedProduct) {
       setProduct(selectedProduct);
       navigate('/SideEffect');
+    }
+  }
+
+  const updateSideEffect = (selectedEffect: SideEffectType) => {
+    if (selectedEffect) {
+      setSideEffect(selectedEffect);
+      navigate("/FirstChart")
     }
   }
 
@@ -46,11 +54,11 @@ function App() {
           />
           <Route
             path="/SideEffect"
-            element={<SideEffect sideEffects={product?.sideEffectList} />}
+            element={<SideEffect sideEffects={product?.sideEffectList} handleOnClick={updateSideEffect} />}
           />
           <Route
             path="/FirstChart"
-            element={<FirstChart product={product} />}
+            element={<FirstChart productName={product?.name} sideEffectName={sideEffect?.name} />}
           />
           <Route
             path="/MainChart"
