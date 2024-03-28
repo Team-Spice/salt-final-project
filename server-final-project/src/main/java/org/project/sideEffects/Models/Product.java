@@ -31,10 +31,6 @@ public class Product {
     public Product() {
     }
 
-    public void addSideEffect(SideEffect sideEffect) {
-        sideEffectList.add(sideEffect);
-    }
-
     public Long getId() {
         return id;
     }

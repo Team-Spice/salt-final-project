@@ -63,7 +63,6 @@ public class Service {
             Product product1 = product.get();
             SideEffect sideEffect1 = sideEffect.get();
 
-            product1.addSideEffect(sideEffect1);
             Report report = new Report(product1,sideEffect1);
             return reportRepo.save(report);
         }
