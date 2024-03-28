@@ -23,12 +23,7 @@ export const getSideEffectCount = async (
 };
 
 export const postReport = async (productId: number, sideEffectId: number) => {
-  const response = await fetch(
-    `${baseUrl}/reports/${productId}/${sideEffectId}`,
-    {
-      method: "POST",
-    }
-  );
-  const data = await response.text();
-  console.log(data);
+  await fetch(`${baseUrl}/reports/${productId}/${sideEffectId}`, {
+    method: "POST",
+  });
 };
