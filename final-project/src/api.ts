@@ -1,13 +1,13 @@
 import { Product, ReportType } from "./types";
 
-// const baseUrl = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
+// const VITE_API_BASE_URL = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
 
-// const { VITE_API_BASE_URL } = import.meta.env;
+const { VITE_API_BASE_URL } = import.meta.env;
 
-const baseUrl = "https://side-effect-resource.azurewebsites.net/api";
+// const VITE_API_BASE_URL = "https://side-effect-resource.azurewebsites.net/api";
 
 export const getProductList = async () => {
-  const response = await fetch(baseUrl + "/product");
+  const response = await fetch(VITE_API_BASE_URL + "/product");
   const data: Product[] = await response.json();
   return data;
 };
@@ -17,7 +17,7 @@ export const getSideEffectCount = async (
   sideEffectId: number
 ) => {
   const response = await fetch(
-    `${baseUrl}/side-effect/${productId}/${sideEffectId}`
+    `${VITE_API_BASE_URL}/side-effect/${productId}/${sideEffectId}`
   );
   const data = await response.text();
   console.log(data);
@@ -26,7 +26,7 @@ export const getSideEffectCount = async (
 
 export const postReport = async (productId: number, sideEffectId: number) => {
   const response = await fetch(
-    `${baseUrl}/reports/${productId}/${sideEffectId}`,
+    `${VITE_API_BASE_URL}/reports/${productId}/${sideEffectId}`,
     {
       method: "POST",
     }
@@ -38,7 +38,7 @@ export const postReport = async (productId: number, sideEffectId: number) => {
 };
 
 export const updateReport = async (reportId: number, newAge: string) => {
-  await fetch(`${baseUrl}/reports/${reportId}`, {
+  await fetch(`${VITE_API_BASE_URL}/reports/${reportId}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
