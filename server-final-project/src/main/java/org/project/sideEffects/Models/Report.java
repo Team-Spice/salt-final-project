@@ -26,6 +26,7 @@ public class Report {
     public Report(Product product, SideEffect sideEffect) {
         this.product = product;
         this.sideEffect = sideEffect;
+        age = -1;
     }
 
     public long getId() {
@@ -42,5 +43,9 @@ public class Report {
 
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int newAge) {
+        age = newAge;
     }
 }

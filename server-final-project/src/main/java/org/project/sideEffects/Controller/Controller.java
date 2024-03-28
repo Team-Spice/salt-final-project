@@ -1,10 +1,12 @@
 package org.project.sideEffects.Controller;
 
 import org.project.sideEffects.Models.Product;
+import org.project.sideEffects.Models.Report;
 import org.project.sideEffects.Service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -41,15 +43,28 @@ public class Controller {
         }
     }
 
-//    @PostMapping("/side-effect/{productId}/{sideEffectId}")
     @PostMapping("/reports/{productId}/{sideEffectId}")
-    public ResponseEntity<Void> saveSideEffect(@PathVariable long productId,
-                                               @PathVariable long sideEffectId) {
+    public ResponseEntity<Report> saveSideEffect(@PathVariable long productId,
+                                                 @PathVariable long sideEffectId) {
         try {
-            service.saveReport(productId, sideEffectId);
-            return ResponseEntity.ok().build();
+            Report report = service.saveReport(productId, sideEffectId);
+            URI location = URI.create(report.getId() + "");
+            return ResponseEntity.created(location).body(report);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/reports/{id}")
+    public ResponseEntity<Void> updateReport(
+            @RequestBody ReportDTO dto,
+            @PathVariable long id) {
+        try {
+            System.out.println("age = " + dto.age());
+            service.updateReport(id, dto.age());
+            return ResponseEntity.accepted().build();
+        } catch (Exception e) {
+            return ResponseEntity.noContent().build();
         }
     }
 

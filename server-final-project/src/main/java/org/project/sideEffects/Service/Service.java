@@ -55,16 +55,27 @@ public class Service {
 //        }
 //    }
 
-    public void saveReport(long pId, long seId) {
+    public Report saveReport(long pId, long seId) {
         Optional<Product> product = productRepo.findById(pId);
         Optional<SideEffect> sideEffect = sideEffectRepo.findById(seId);
+
         if(product.isPresent() && sideEffect.isPresent()) {
             Product product1 = product.get();
             SideEffect sideEffect1 = sideEffect.get();
 
             product1.addSideEffect(sideEffect1);
             Report report = new Report(product1,sideEffect1);
-            reportRepo.save(report);
+            return reportRepo.save(report);
+        }
+        return null;
+    }
+
+    public void updateReport(long id, int age) {
+        Optional<Report> report = reportRepo.findById(id);
+        if (report.isPresent()) {
+            Report report1 = report.get();
+            report1.setAge(age);
+            reportRepo.save(report1);
         }
     }
 }
