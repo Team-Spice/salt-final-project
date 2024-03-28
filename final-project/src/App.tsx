@@ -36,7 +36,7 @@ function App() {
       return;
     }
     const count = await getSideEffectCount(product?.id, selectedEffect.id);
-    postReport(product.id, selectedEffect?.id);
+    await postReport(product.id, selectedEffect?.id);
 
     setSideEffect(selectedEffect);
     setAffectedCount(count);
