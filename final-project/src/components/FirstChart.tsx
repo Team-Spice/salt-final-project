@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { updateReport } from "../api";
+import FirstChartDone from "./Charts";
 
 // const ageGroup = [
 //   "0-10",
@@ -52,6 +53,12 @@ const FirstChart = ({
         {sideEffectName} as a side effect for {productName}!
       </p>
       <p>INSERT CHART HERE</p>
+      <FirstChartDone
+        sideEffect={sideEffectName}
+        reportCount={parseInt(count || "0")}
+        productName={productName ?? ""}
+        totalReport={10}
+      />
       <p>Want to see more?</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="formAge">Age</label>
