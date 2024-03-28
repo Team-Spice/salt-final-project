@@ -15,7 +15,7 @@ function App() {
   const [product, setProduct] = useState<Product>();
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
   const [affectedCount, setAffectedCount] = useState("");
-
+  const [reportId, setReportId] = useState<number>(-1);
   const navigate = useNavigate();
 
   const fetchProduct = async () => {
@@ -36,8 +36,9 @@ function App() {
       return;
     }
     const count = await getSideEffectCount(product?.id, selectedEffect.id);
-    await postReport(product.id, selectedEffect?.id);
+    const postResponse = await postReport(product.id, selectedEffect?.id);
 
+    setReportId(postResponse);
     setSideEffect(selectedEffect);
     setAffectedCount(count);
     navigate("/FirstChart");
@@ -74,6 +75,7 @@ function App() {
                 productName={product?.name}
                 sideEffectName={sideEffect?.name}
                 count={affectedCount}
+                reportId={reportId}
               />
             }
           />

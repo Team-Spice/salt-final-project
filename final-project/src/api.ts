@@ -33,4 +33,16 @@ export const postReport = async (productId: number, sideEffectId: number) => {
   );
   const data: ReportType = await response.json();
   console.log("data " + data.id);
+  const reportId = data.id;
+  return reportId;
+};
+
+export const updateReport = async (reportId: number, newAge: string) => {
+  await fetch(`${baseUrl}/reports/${reportId}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ age: newAge }),
+  });
 };

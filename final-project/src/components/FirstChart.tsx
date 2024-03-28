@@ -1,52 +1,65 @@
 import { useNavigate } from "react-router-dom";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import { updateReport } from "../api";
 
-const ageGroup = [
-  '0-10',
-  '11-20',
-  '21-30',
-  '31-40',
-  '41-50',
-  '51-60',
-  '61-70',
-  '71-80',
-  '81-90',
-  '91-'
-];
+// const ageGroup = [
+//   "0-10",
+//   "11-20",
+//   "21-30",
+//   "31-40",
+//   "41-50",
+//   "51-60",
+//   "61-70",
+//   "71-80",
+//   "81-90",
+//   "91-",
+// ];
 
-type SelectFormEvent = FormEvent<HTMLFormElement> & {
+type InputFormEvent = FormEvent<HTMLFormElement> & {
   target: {
-    formAge: { value: string }
-  }
-}
+    formAge: { value: string };
+  };
+};
 
 type FirstChartProps = {
   productName: string | undefined;
   sideEffectName: string | undefined;
   count: string | undefined;
-}
+  reportId: number;
+};
 
-const FirstChart = ({ productName, sideEffectName, count }: FirstChartProps) => {
+const FirstChart = ({
+  productName,
+  sideEffectName,
+  count,
+  reportId,
+}: FirstChartProps) => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e: SelectFormEvent) => {
+  const [age, setAge] = useState<string>("");
+
+  const handleSubmit = (e: InputFormEvent) => {
     e.preventDefault();
-    console.log(e.target.formAge.value)
+    updateReport(reportId, age);
     navigate("/MainChart");
+    // setAge(e.target.formAge.value);
+    console.log(age);
   };
   return (
     <>
       <p>
-        Thank you for submitting, {count} number of people have reported {sideEffectName} as a side
-        effect for {productName}!
+        Thank you for submitting, {count} number of people have reported{" "}
+        {sideEffectName} as a side effect for {productName}!
       </p>
       <p>INSERT CHART HERE</p>
       <p>Want to see more?</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="formAge">Age</label>
-        <select name="formAge" id="formAge">
-          {ageGroup.map(group => <option key={group} value={group}>{group}</option>)}
-        </select>
+        <input
+          value={age}
+          onChange={(a) => setAge(a.target.value)}
+          type="number"
+        ></input>
         <button type="submit">submit</button>
       </form>
     </>
