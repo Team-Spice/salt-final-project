@@ -5,11 +5,10 @@ spring:
       enabled: always
   sql:
     init:
-      platform: mssql-jdbc
       mode: never
-      #platform: postgresql
+      platform: postgresql
   datasource:
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    driverClassName: org.postgresql.Driver
     username: ${AZURE_DB_USER}
     password: ${AZURE_DB_PWD}
     url: ${AZURE_DB_CONNECTION_STRING}
@@ -18,9 +17,3 @@ spring:
       ddl-auto: update
     show-sql: true
     defer-datasource-initialization: true
-
-#  cloud:
-#    azure:
-#      storage:
-#        blob:
-#          connection-string: ${AZURE_BLOB_CONNECTION_STRING}

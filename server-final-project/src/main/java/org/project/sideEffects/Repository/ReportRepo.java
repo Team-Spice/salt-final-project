@@ -12,5 +12,8 @@ import java.util.List;
 public interface ReportRepo extends JpaRepository<Report, Long> {
 
     List<Report> findAllByProductAndSideEffect(Product product, SideEffect sideEffect);
+    List<Report> findAllByAgeAndProduct(int age, Product product);
+
+    List<Report> findAllByProduct(Product product);
 
 }
