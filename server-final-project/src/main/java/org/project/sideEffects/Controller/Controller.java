@@ -42,7 +42,7 @@ public class Controller {
     }
 
 //    @PostMapping("/side-effect/{productId}/{sideEffectId}")
-    @PostMapping("/side-effect/{productId}/{sideEffectId}")
+    @PostMapping("/reports/{productId}/{sideEffectId}")
     public ResponseEntity<Void> saveSideEffect(@PathVariable long productId,
                                                @PathVariable long sideEffectId) {
         try {

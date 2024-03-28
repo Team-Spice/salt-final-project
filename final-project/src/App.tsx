@@ -8,44 +8,44 @@ import FirstChart from "./components/FirstChart";
 import MainChart from "./components/MainChart";
 import { mockedChartData } from "./mockData/mock-product";
 import { useEffect, useState } from "react";
-import { getProductList, getSideEffectCount } from "./api";
+import { getProductList, getSideEffectCount, postReport } from "./api";
 
 function App() {
-  const [productList, setProductList] = useState<Product[]>([])
+  const [productList, setProductList] = useState<Product[]>([]);
   const [product, setProduct] = useState<Product>();
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
   const [affectedCount, setAffectedCount] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchProduct = async () => {
     const newProduct = await getProductList();
     console.log(newProduct);
     setProductList(newProduct);
-  }
+  };
 
   const updateProduct = (selectedProduct: Product) => {
     if (selectedProduct) {
       setProduct(selectedProduct);
-      navigate('/SideEffect');
+      navigate("/SideEffect");
     }
-  }
+  };
 
   const updateSideEffect = async (selectedEffect: SideEffectType) => {
     if (!(product && selectedEffect)) {
       return;
     }
+    const count = await getSideEffectCount(product?.id, selectedEffect.id);
+    const report = await postReport(product.id, selectedEffect?.id);
 
     setSideEffect(selectedEffect);
-    const count = await getSideEffectCount(product?.id, selectedEffect.id)
     setAffectedCount(count);
-    navigate("/FirstChart")
-
-  }
+    navigate("/FirstChart");
+  };
 
   useEffect(() => {
     fetchProduct();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -60,11 +60,22 @@ function App() {
           />
           <Route
             path="/SideEffect"
-            element={<SideEffect sideEffects={product?.sideEffectList} handleOnClick={updateSideEffect} />}
+            element={
+              <SideEffect
+                sideEffects={product?.sideEffectList}
+                handleOnClick={updateSideEffect}
+              />
+            }
           />
           <Route
             path="/FirstChart"
-            element={<FirstChart productName={product?.name} sideEffectName={sideEffect?.name} count={affectedCount} />}
+            element={
+              <FirstChart
+                productName={product?.name}
+                sideEffectName={sideEffect?.name}
+                count={affectedCount}
+              />
+            }
           />
           <Route
             path="/MainChart"

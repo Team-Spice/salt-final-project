@@ -13,5 +13,4 @@ public interface ReportRepo extends JpaRepository<Report, Long> {
 
     List<Report> findAllByProductAndSideEffect(Product product, SideEffect sideEffect);
 
-//    void save(Product product, SideEffect sideEffect);
 }
