@@ -19,6 +19,7 @@ jobs:
 
     environment:
       name: Production
+      url: ${{ steps.builddeploy.outputs.webapp-url }}
 
     name: Build and Deploy Job
     steps:
