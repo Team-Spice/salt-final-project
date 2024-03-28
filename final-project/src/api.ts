@@ -1,8 +1,10 @@
 import { Product } from "./types";
 
-const baseUrl = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
+// const baseUrl = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
 
-// const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const { VITE_API_BASE_URL } = import.meta.env;
+
+const baseUrl = VITE_API_BASE_URL ?? "https://side-effect-resource.azurewebsites.net/api";
 
 export const getProductList = async () => {
   const response = await fetch(baseUrl + "/product");
