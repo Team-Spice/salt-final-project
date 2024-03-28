@@ -27,3 +27,9 @@ export type ReportType = {
   id: number;
   age: number;
 };
+
+export type ReportTypeAll = {
+  sideEffectId: number;
+  sideEffectName: string;
+  amount: number | undefined;
+};

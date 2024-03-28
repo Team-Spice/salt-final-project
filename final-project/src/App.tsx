@@ -8,7 +8,12 @@ import FirstChart from "./components/FirstChart";
 import MainChart from "./components/MainChart";
 import { mockedChartData } from "./mockData/mock-product";
 import { useEffect, useState } from "react";
-import { getProductList, getSideEffectCount, postReport } from "./api";
+import {
+  getAllReportsBySideEffect,
+  getProductList,
+  getSideEffectCount,
+  postReport,
+} from "./api";
 
 function App() {
   const [productList, setProductList] = useState<Product[]>([]);
@@ -16,6 +21,8 @@ function App() {
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
   const [affectedCount, setAffectedCount] = useState("");
   const [reportId, setReportId] = useState<number>(-1);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+
   const navigate = useNavigate();
 
   const fetchProduct = async () => {
@@ -37,10 +44,12 @@ function App() {
     }
     const count = await getSideEffectCount(product?.id, selectedEffect.id);
     const postResponse = await postReport(product.id, selectedEffect?.id);
+    const totalAmountResponse = await getAllReportsBySideEffect(product.id);
 
     setReportId(postResponse);
     setSideEffect(selectedEffect);
     setAffectedCount(count);
+    setTotalAmount(totalAmountResponse);
     navigate("/FirstChart");
   };
 
@@ -76,6 +85,7 @@ function App() {
                 sideEffectName={sideEffect?.name}
                 count={affectedCount}
                 reportId={reportId}
+                totalReport={totalAmount}
               />
             }
           />

@@ -1,4 +1,4 @@
-import { Product, ReportType } from "./types";
+import { Product, ReportType, ReportTypeAll } from "./types";
 
 // const VITE_API_BASE_URL = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
 
@@ -45,4 +45,18 @@ export const updateReport = async (reportId: number, newAge: string) => {
     },
     body: JSON.stringify({ age: newAge }),
   });
+};
+
+export const getAllReportsBySideEffect = async (productId: number) => {
+  const response = await fetch(
+    `${VITE_API_BASE_URL}/reports/product-chart/${productId}`
+  );
+  const data: ReportTypeAll[] = await response.json();
+  const amount: number = data.reduce(
+    (acc, report) => acc + (report.amount ?? 0),
+    0
+  );
+
+  console.log("amount" + amount);
+  return amount;
 };

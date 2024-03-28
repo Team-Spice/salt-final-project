@@ -27,6 +27,7 @@ type FirstChartProps = {
   sideEffectName: string | undefined;
   count: string | undefined;
   reportId: number;
+  totalReport: number;
 };
 
 const FirstChart = ({
@@ -34,6 +35,7 @@ const FirstChart = ({
   sideEffectName,
   count,
   reportId,
+  totalReport,
 }: FirstChartProps) => {
   const navigate = useNavigate();
 
@@ -57,7 +59,7 @@ const FirstChart = ({
         sideEffect={sideEffectName}
         reportCount={parseInt(count || "0")}
         productName={productName ?? ""}
-        totalReport={10}
+        totalReport={totalReport}
       />
       <p>Want to see more?</p>
       <form onSubmit={handleSubmit}>
