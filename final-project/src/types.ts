@@ -6,20 +6,24 @@ export type Product = {
   brand: string;
   description: string;
   sideEffectList: SideEffectType[];
-}
+};
 
 export type SideEffectType = {
   id: number;
   name: string;
-}
+};
 
 export type SideEffects = {
   medicament: string;
   sideEffectList: SideEffectType[];
-}
+};
 
 export type SelectFormEvent = FormEvent<HTMLFormElement> & {
   target: {
-    selected: { value: string }
-  }
-}
+    selected: { value: string };
+  };
+};
+export type ReportType = {
+  id: number;
+  age: number;
+};

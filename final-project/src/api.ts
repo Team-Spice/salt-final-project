@@ -1,4 +1,4 @@
-import { Product } from "./types";
+import { Product, ReportType } from "./types";
 
 // const baseUrl = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
 
@@ -25,7 +25,12 @@ export const getSideEffectCount = async (
 };
 
 export const postReport = async (productId: number, sideEffectId: number) => {
-  await fetch(`${baseUrl}/reports/${productId}/${sideEffectId}`, {
-    method: "POST",
-  });
+  const response = await fetch(
+    `${baseUrl}/reports/${productId}/${sideEffectId}`,
+    {
+      method: "POST",
+    }
+  );
+  const data: ReportType = await response.json();
+  console.log("data " + data.id);
 };
