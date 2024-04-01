@@ -48,13 +48,12 @@ export const getAllReportsBySideEffect = async (productId: number) => {
     `${VITE_API_BASE_URL}/reports/product-chart/${productId}`
   );
   const data: ReportTypeAll[] = await response.json();
-  const amount: number = data.reduce(
-    (acc, report) => acc + (report.amount ?? 0),
-    0
-  );
+  // const amount: number = data.reduce(
+  //   (acc, report) => acc + (report.amount ?? 0),
+  //   0
+  // );
 
-  console.log("amount" + amount);
-  return amount;
+  return data;
 };
 
 export const getDemographicChartData = async (

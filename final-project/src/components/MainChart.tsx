@@ -60,7 +60,7 @@ const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
   };
 
   if (!selectedAge) {
-    return <p>No data</p>;
+    return <p>Loading...</p>;
   }
 
   return (

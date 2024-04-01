@@ -1,7 +1,12 @@
 import Nav from "./components/Nav";
 import "./App.css";
 import Home from "./components/Home";
-import { Product, SideEffectType, ReportChartDTO } from "./types";
+import {
+  Product,
+  SideEffectType,
+  ReportChartDTO,
+  ReportTypeAll,
+} from "./types";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import SideEffect from "./components/SideEffect";
 import FirstChart from "./components/FirstChart";
@@ -22,7 +27,7 @@ function App() {
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
   const [affectedCount, setAffectedCount] = useState("");
   const [reportId, setReportId] = useState<number>(-1);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [reportTypeList, setReportTypeList] = useState<ReportTypeAll[]>([]);
   const [, setChartData] = useState<ReportChartDTO[]>([]);
   const [selectedAge, setSelectedAge] = useState<string>("");
 
@@ -47,14 +52,14 @@ function App() {
     }
     const count = await getSideEffectCount(product?.id, selectedEffect.id);
     const postResponse = await postReport(product.id, selectedEffect?.id);
-    const totalAmountResponseBySideEffect = await getAllReportsBySideEffect(
+    const ReportTypeAllResponseBySideEffect = await getAllReportsBySideEffect(
       product.id
     );
 
     setReportId(postResponse);
     setSideEffect(selectedEffect);
     setAffectedCount(count);
-    setTotalAmount(totalAmountResponseBySideEffect);
+    setReportTypeList(ReportTypeAllResponseBySideEffect);
 
     navigate("/FirstChart");
   };
@@ -105,7 +110,7 @@ function App() {
                 sideEffectName={sideEffect?.name}
                 count={affectedCount}
                 reportId={reportId}
-                totalReport={totalAmount}
+                totalReport={reportTypeList}
                 onAgeSelected={handleAgeSubmit}
               />
             }

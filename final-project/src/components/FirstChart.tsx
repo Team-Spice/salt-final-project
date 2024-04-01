@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { updateReport } from "../api";
 import FirstChartDone from "./FirstChartDone";
+import { ReportTypeAll } from "../types";
 
 // const ageGroup = [
 //   "0-10",
@@ -27,7 +28,7 @@ type FirstChartProps = {
   sideEffectName: string | undefined;
   count: string | undefined;
   reportId: number;
-  totalReport: number;
+  totalReport: ReportTypeAll[];
   onAgeSelected: (selectedAge: string) => void;
 };
 
