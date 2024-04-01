@@ -48,4 +48,7 @@ public class Controller {
     public ResponseEntity<List<Product>> getListOfProduct() {
         return ResponseEntity.ok(this.service.findAll());
     }
+
+
+
 }

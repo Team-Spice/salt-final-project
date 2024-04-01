@@ -1,4 +1,4 @@
-import { Product, ReportType, ReportTypeAll } from "./types";
+import { Product, ReportChartDTO, ReportType, ReportTypeAll } from "./types";
 
 // const VITE_API_BASE_URL = "https://side-effect-resource.azurewebsites.net/api"; //change to environment variables
 
@@ -60,3 +60,70 @@ export const getAllReportsBySideEffect = async (productId: number) => {
   console.log("amount" + amount);
   return amount;
 };
+
+export const getDemographicChartData = async (
+  productId: number,
+  newAge: number
+) => {
+  try {
+    const response = await fetch(
+      `${VITE_API_BASE_URL}/reports/demographic-chart/${productId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ age: newAge }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch demographic chart data");
+    }
+    const data: ReportChartDTO[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching demographic chart data:", error);
+    throw error;
+  }
+};
+
+// export type ProductReportSummary = {
+//   productName: string;
+//   totalReports: number;
+//   sideEffectsByAge: Record<string, number>;
+// };
+
+// export const getProductReportSummary = async (
+//   productId: number,
+//   newAge: string
+// ) => {
+//   const response = await fetch(
+//     `${VITE_API_BASE_URL}/reports/product-report-summary/${productId}/${newAge}`
+//   );
+
+//   const data: ProductReportSummary = await response.json();
+
+//   return data;
+// };
+
+// export const getChartData = async (productId: number, age: number) => {
+//   const response = await fetch(
+//     `/api/reports/demographic-chart/${productId}?age=${age}`
+//   );
+
+//   const data: ReportChartDTO[] = await response.json();
+//   return data;
+// };
+// export const getAgeByReportId = async (productId: number) => {
+//   const response = await fetch(
+//     `${VITE_API_BASE_URL}/demographics/product-chart/${productId}`
+//   );
+//   const data: ReportTypeAll[] = await response.json();
+//   const amount: number = data.reduce(
+//     (acc, report) => acc + (report.amount ?? 0),
+//     0
+//   );
+
+//   console.log("amount" + amount);
+//   return amount;
+// };

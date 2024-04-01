@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { updateReport } from "../api";
-import FirstChartDone from "./Charts";
+import FirstChartDone from "./FirstChartDone";
 
 // const ageGroup = [
 //   "0-10",
@@ -28,6 +28,7 @@ type FirstChartProps = {
   count: string | undefined;
   reportId: number;
   totalReport: number;
+  onAgeSelected: (selectedAge: string) => void;
 };
 
 const FirstChart = ({
@@ -36,6 +37,7 @@ const FirstChart = ({
   count,
   reportId,
   totalReport,
+  onAgeSelected,
 }: FirstChartProps) => {
   const navigate = useNavigate();
 
@@ -44,9 +46,8 @@ const FirstChart = ({
   const handleSubmit = (e: InputFormEvent) => {
     e.preventDefault();
     updateReport(reportId, age);
+    onAgeSelected(age);
     navigate("/MainChart");
-    // setAge(e.target.formAge.value);
-    console.log(age);
   };
   return (
     <>

@@ -9,7 +9,9 @@ import org.project.sideEffects.Repository.SideEffectRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -33,11 +35,11 @@ public class ReportService {
         Optional<Product> product = productRepo.findById(pId);
         Optional<SideEffect> sideEffect = sideEffectRepo.findById(seId);
 
-        if(product.isPresent() && sideEffect.isPresent()) {
+        if (product.isPresent() && sideEffect.isPresent()) {
             Product product1 = product.get();
             SideEffect sideEffect1 = sideEffect.get();
 
-            Report report = new Report(product1,sideEffect1);
+            Report report = new Report(product1, sideEffect1);
             return reportRepo.save(report);
         }
         return null;
@@ -60,5 +62,28 @@ public class ReportService {
     public List<Report> getProductReports(long id) {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with ID: " + id));
         return reportRepo.findAllByProduct(product);
+    }
+
+    public Map<String, Long> getSideEffectsByProductAndAge(long productId, int age) {
+        Optional<Product> product = productRepo.findById(productId);
+
+        if (product == null) {
+            throw new IllegalArgumentException("Product not found with ID: " + productId);
+        }
+
+        List<Report> productReports = reportRepo.findByProductId(productId);
+
+        Map<String, Long> sideEffectsByProductAndAge = productReports.stream()
+                .filter(report -> report.getAge() == age)
+                .collect(Collectors.groupingBy(report -> report.getSideEffect().getName(),
+                        Collectors.counting()));
+
+        return sideEffectsByProductAndAge;
+    }
+
+
+    public long getTotalReportsForProduct(long productId) {
+        List<Report> reports = reportRepo.findByProductId(productId);
+        return reports.size();
     }
 }

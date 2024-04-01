@@ -1,6 +1,8 @@
 import { FormEvent } from "react";
 
 export type Product = {
+  barcode: string;
+  image: string | undefined;
   id: number;
   name: string;
   brand: string;
@@ -32,4 +34,9 @@ export type ReportTypeAll = {
   sideEffectId: number;
   sideEffectName: string;
   amount: number | undefined;
+};
+
+export type ReportChartDTO = {
+  age: number;
+  sideEffectCount: number;
 };

@@ -1,6 +1,4 @@
 import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
-// import SideEffect from "./SideEffect";
-// import { SideEffectType } from "../types";
 
 type ChartProps = {
   sideEffect?: string | undefined;
