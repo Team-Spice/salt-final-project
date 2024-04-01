@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { updateReport } from "../api";
 import FirstChartDone from "./FirstChartDone";
@@ -28,7 +28,7 @@ type FirstChartProps = {
   sideEffectName: string | undefined;
   count: string | undefined;
   reportId: number;
-  totalReport: ReportTypeAll[];
+  chartData: ReportTypeAll[];
   onAgeAndGenderSelected: (selectedAge: string, selectedGender: string) => void;
 };
 
@@ -37,20 +37,19 @@ const FirstChart = ({
   sideEffectName,
   count,
   reportId,
-  totalReport,
+  chartData,
   onAgeAndGenderSelected,
 }: FirstChartProps) => {
-  const navigate = useNavigate();
 
-  const [age, setAge] = useState<string>("");
-  const [gender, setGender] = useState<string>("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
 
   const handleSubmit = (e: InputFormEvent) => {
     e.preventDefault();
     updateReport(reportId, age, gender);
     onAgeAndGenderSelected(age, gender);
-    navigate("/MainChart");
   };
+
   return (
     <>
       <p>
@@ -59,10 +58,7 @@ const FirstChart = ({
       </p>
       <p>INSERT CHART HERE</p>
       <FirstChartDone
-        sideEffect={sideEffectName}
-        reportCount={parseInt(count || "0")}
-        productName={productName ?? ""}
-        totalReport={totalReport}
+        chartData={chartData}
       />
       <p>Want to see more?</p>
       <form onSubmit={handleSubmit}>

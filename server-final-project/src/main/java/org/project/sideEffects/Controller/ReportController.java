@@ -70,9 +70,9 @@ public class ReportController {
             @RequestBody ReportDTO dto
     ) {
         try {
-            if (dto.age() < 0) {
+            /*if (dto.age() < 0) {
                 throw new IllegalArgumentException("Age cannot be negative");
-            }
+            }*/
             List<Report> reportList = reportService.getDemographicReports(productId, dto.age(), dto.gender());
             List<ReportChartDTO> chartDTOList = ReportChartDTO.reportListToDTO(reportList);
             return ResponseEntity.ok(chartDTOList);

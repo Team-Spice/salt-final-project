@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import {
   Product,
   SideEffectType,
-  ReportChartDTO,
+  // ReportChartDTO,
   ReportTypeAll,
 } from "./types";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import MainChart from "./components/MainChart";
 import { useEffect, useState } from "react";
 import {
   getAllReportsBySideEffect,
-  getDemographicChartData,
+  // getDemographicChartData,
   getProductList,
   getSideEffectCount,
   postReport,
@@ -26,9 +26,10 @@ function App() {
   const [product, setProduct] = useState<Product>();
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
   const [affectedCount, setAffectedCount] = useState("");
+
   const [reportId, setReportId] = useState<number>(-1);
   const [reportTypeList, setReportTypeList] = useState<ReportTypeAll[]>([]);
-  const [, setChartData] = useState<ReportChartDTO[]>([]);
+  // const [, setChartData] = useState<ReportChartDTO[]>([]);
   const [selectedAge, setSelectedAge] = useState<string>("");
   const [genderSelected, setGenderSelected] = useState<string>("");
 
@@ -36,7 +37,7 @@ function App() {
 
   const fetchProduct = async () => {
     const newProduct = await getProductList();
-    console.log(newProduct);
+    // console.log(newProduct);
     setProductList(newProduct);
   };
 
@@ -51,8 +52,8 @@ function App() {
     if (!(product && selectedEffect)) {
       return;
     }
-    const count = await getSideEffectCount(product?.id, selectedEffect.id);
-    const postResponse = await postReport(product.id, selectedEffect?.id);
+    const count = await getSideEffectCount(product.id, selectedEffect.id);
+    const postResponse = await postReport(product.id, selectedEffect.id);
     const ReportTypeAllResponseBySideEffect = await getAllReportsBySideEffect(
       product.id
     );
@@ -67,15 +68,18 @@ function App() {
 
   const handleAgeAndGenderSubmit = async (age: string, gender: string) => {
     try {
+      // const id = product?.id ?? 0;
+
       await updateReport(reportId, age, gender);
-      setSelectedAge(age);
+      // const responseChartData = await getDemographicChartData(
+      //   id,
+      //   parseInt(selectedAge),
+      //   genderSelected
+      // );
+
+      // setChartData(responseChartData);
       setGenderSelected(gender);
-      const responseChartData = await getDemographicChartData(
-        product?.id ?? 0,
-        parseInt(selectedAge),
-        genderSelected
-      );
-      setChartData(responseChartData);
+      setSelectedAge(age);
       navigate("/MainChart");
     } catch (error) {
       console.error(error);
@@ -114,7 +118,7 @@ function App() {
                 sideEffectName={sideEffect?.name}
                 count={affectedCount}
                 reportId={reportId}
-                totalReport={reportTypeList}
+                chartData={reportTypeList}
                 onAgeAndGenderSelected={handleAgeAndGenderSubmit}
               />
             }
@@ -127,7 +131,6 @@ function App() {
                 selectedAgeFromApp={selectedAge ?? ""}
                 selectedGenderFromApp={genderSelected ?? ""}
               />
-              // <MainChart chartData={chartData.length > 0 ? chartData : []} />
             }
           />
         </Routes>

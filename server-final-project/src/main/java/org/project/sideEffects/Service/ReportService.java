@@ -8,6 +8,7 @@ import org.project.sideEffects.Repository.ReportRepo;
 import org.project.sideEffects.Repository.SideEffectRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -57,7 +58,13 @@ public class ReportService {
 
     public List<Report> getDemographicReports(long id, int age, String gender) {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with id: " + id));
-        return reportRepo.findAllByAgeAndProductAndGender(age, product, gender);
+        if (age >= 0 && !gender.isEmpty()) {
+            return reportRepo.findAllByAgeAndProductAndGender(age, product, gender);
+        }
+        if (age < 0) {
+            return reportRepo.findAllByGenderAndProduct(gender, product);
+        }
+        return reportRepo.findAllByAgeAndProduct(age, product);
     }
 
     public List<Report> getProductReports(long id) {

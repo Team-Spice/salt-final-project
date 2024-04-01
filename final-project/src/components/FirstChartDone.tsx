@@ -2,19 +2,13 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 import { ReportTypeAll } from "../types";
 
 type ChartProps = {
-  sideEffect?: string | undefined;
-  reportCount: number;
-  productName: string;
-  totalReport: ReportTypeAll[];
+  chartData: ReportTypeAll[];
 };
 
 const FirstChartDone = ({
-  // sideEffect,
-  // reportCount,
-  // productName,
-  totalReport,
+  chartData,
 }: ChartProps) => {
-  const formattedData = totalReport.map((count) => ({
+  const formattedData = chartData.map((count) => ({
     name: count.sideEffectName,
     value: count.amount,
   }));
@@ -24,10 +18,6 @@ const FirstChartDone = ({
       <PieChart>
         <Pie
           data={formattedData}
-          // data={[
-          //   { name: sideEffect, value: reportCount },
-          //   { name: productName, value: totalReport - reportCount },
-          // ]}
           isAnimationActive={false}
           dataKey="value"
           nameKey="name"

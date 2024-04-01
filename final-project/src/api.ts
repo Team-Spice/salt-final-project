@@ -52,19 +52,17 @@ export const getAllReportsBySideEffect = async (productId: number) => {
     `${VITE_API_BASE_URL}/reports/product-chart/${productId}`
   );
   const data: ReportTypeAll[] = await response.json();
-  // const amount: number = data.reduce(
-  //   (acc, report) => acc + (report.amount ?? 0),
-  //   0
-  // );
 
   return data;
 };
 
 export const getDemographicChartData = async (
   productId: number,
-  newAge: number,
+  newAge: string,
   newGender: string
 ) => {
+  const age = newAge || -1;
+  console.log("age is:", age)
   try {
     const response = await fetch(
       `${VITE_API_BASE_URL}/reports/demographic-chart/${productId}`,
@@ -73,12 +71,14 @@ export const getDemographicChartData = async (
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ age: newAge, gender: newGender }),
+        body: JSON.stringify({ age: age, gender: newGender }),
       }
     );
+
     if (!response.ok) {
       throw new Error("Failed to fetch demographic chart data");
     }
+
     const data: ReportChartDTO[] = await response.json();
     return data;
   } catch (error) {
