@@ -37,7 +37,7 @@ const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
         newData = await getDemographicChartData(productId, age);
       } else {
         newData = await Promise.all(
-          Array.from({ length: 120 }, (value, age) =>
+          Array.from({ length: 120 }, (_, age) =>
             getDemographicChartData(productId, age)
           )
         ).then((ageData) => ageData.flat());
@@ -70,7 +70,7 @@ const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
         <label htmlFor="age">Select Age:</label>
         <select id="age" onChange={handleAgeChange} value={selectedAge ?? ""}>
           <option value="">-- Select age --</option>
-          {Array.from({ length: 120 }, (value, age) => (
+          {Array.from({ length: 120 }, (_, age) => (
             <option key={age} value={age}>
               {age}
             </option>
