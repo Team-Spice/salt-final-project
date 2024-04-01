@@ -14,16 +14,16 @@ const FirstChartDone = ({
   // productName,
   totalReport,
 }: ChartProps) => {
+  const formattedData = totalReport.map((count) => ({
+    name: count.sideEffectName,
+    value: count.amount,
+  }));
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart>
         <Pie
-          data={totalReport.map((count) => {
-            return {
-              name: count.sideEffectName,
-              value: count.amount,
-            };
-          })}
+          data={formattedData}
           // data={[
           //   { name: sideEffect, value: reportCount },
           //   { name: productName, value: totalReport - reportCount },

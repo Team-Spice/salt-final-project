@@ -30,6 +30,7 @@ function App() {
   const [reportTypeList, setReportTypeList] = useState<ReportTypeAll[]>([]);
   const [, setChartData] = useState<ReportChartDTO[]>([]);
   const [selectedAge, setSelectedAge] = useState<string>("");
+  const [genderSelected, setGenderSelected] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -64,13 +65,15 @@ function App() {
     navigate("/FirstChart");
   };
 
-  const handleAgeSubmit = async (age: string) => {
+  const handleAgeAndGenderSubmit = async (age: string, gender: string) => {
     try {
-      await updateReport(reportId, age);
+      await updateReport(reportId, age, gender);
       setSelectedAge(age);
+      setGenderSelected(gender);
       const responseChartData = await getDemographicChartData(
         product?.id ?? 0,
-        parseInt(selectedAge)
+        parseInt(selectedAge),
+        genderSelected
       );
       setChartData(responseChartData);
       navigate("/MainChart");
@@ -78,6 +81,7 @@ function App() {
       console.error(error);
     }
   };
+
   useEffect(() => {
     fetchProduct();
   }, []);
@@ -111,7 +115,7 @@ function App() {
                 count={affectedCount}
                 reportId={reportId}
                 totalReport={reportTypeList}
-                onAgeSelected={handleAgeSubmit}
+                onAgeAndGenderSelected={handleAgeAndGenderSubmit}
               />
             }
           />
@@ -121,6 +125,7 @@ function App() {
               <MainChart
                 productId={product?.id ?? 0}
                 selectedAgeFromApp={selectedAge ?? ""}
+                selectedGenderFromApp={genderSelected ?? ""}
               />
               // <MainChart chartData={chartData.length > 0 ? chartData : []} />
             }

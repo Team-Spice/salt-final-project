@@ -28,6 +28,7 @@ export type SelectFormEvent = FormEvent<HTMLFormElement> & {
 export type ReportType = {
   id: number;
   age: number;
+  gender: string;
 };
 
 export type ReportTypeAll = {
@@ -38,5 +39,6 @@ export type ReportTypeAll = {
 
 export type ReportChartDTO = {
   age: number;
+  gender: string;
   sideEffectCount: number;
 };

@@ -45,18 +45,19 @@ public class ReportService {
         return null;
     }
 
-    public void updateReport(long id, int age) {
+    public void updateReport(long id, int age, String gender) {
         Optional<Report> report = reportRepo.findById(id);
         if (report.isPresent()) {
             Report report1 = report.get();
             report1.setAge(age);
+            report1.setGender(gender);
             reportRepo.save(report1);
         }
     }
 
-    public List<Report> getDemographicReports(long id, int age) {
+    public List<Report> getDemographicReports(long id, int age, String gender) {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with id: " + id));
-        return reportRepo.findAllByAgeAndProduct(age, product);
+        return reportRepo.findAllByAgeAndProductAndGender(age, product, gender);
     }
 
     public List<Report> getProductReports(long id) {

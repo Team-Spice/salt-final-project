@@ -14,10 +14,16 @@ import { ReportChartDTO } from "../types";
 type MainChartProps = {
   productId: number;
   selectedAgeFromApp: string;
+  selectedGenderFromApp: string;
 };
 
-const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
+const MainChart = ({
+  productId,
+  selectedAgeFromApp,
+  selectedGenderFromApp,
+}: MainChartProps) => {
   const [selectedAge, setSelectedAge] = useState<number>(0);
+  const [selectedGender, setSelectedGender] = useState<string>("");
   const [chartData, setChartData] = useState<ReportChartDTO[]>([]);
 
   useEffect(() => {
@@ -25,20 +31,24 @@ const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
       console.log("selected age:", selectedAgeFromApp);
       const age = parseInt(selectedAgeFromApp);
       setSelectedAge(age);
-      await fetchDemographicData(age);
+      setSelectedGender(selectedGenderFromApp);
+      await fetchDemographicData(age, selectedGenderFromApp);
     };
     getData();
-  }, [selectedAgeFromApp]);
+  }, [selectedAgeFromApp, selectedGenderFromApp]);
 
-  const fetchDemographicData = async (age: number | null) => {
+  const fetchDemographicData = async (
+    age: number | null,
+    gender: string | ""
+  ) => {
     try {
       let newData: ReportChartDTO[] = [];
-      if (age !== null) {
-        newData = await getDemographicChartData(productId, age);
+      if (age !== null && gender !== null) {
+        newData = await getDemographicChartData(productId, age, gender);
       } else {
         newData = await Promise.all(
           Array.from({ length: 120 }, (_, age) =>
-            getDemographicChartData(productId, age)
+            getDemographicChartData(productId, age, gender)
           )
         ).then((ageData) => ageData.flat());
       }
@@ -56,10 +66,18 @@ const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
       return;
     }
     setSelectedAge(age);
-    await fetchDemographicData(age);
+    await fetchDemographicData(age, selectedGender);
   };
 
-  if (!selectedAge) {
+  const handleGenderChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const gender = event.target.value;
+    setSelectedGender(gender);
+    await fetchDemographicData(selectedAge, gender);
+  };
+
+  if (!selectedAge && !selectedGender) {
     return <p>Loading...</p>;
   }
 
@@ -75,6 +93,19 @@ const MainChart = ({ productId, selectedAgeFromApp }: MainChartProps) => {
               {age}
             </option>
           ))}
+        </select>
+      </div>{" "}
+      <div>
+        <label htmlFor="gender">Select Gender:</label>
+        <select
+          id="gender"
+          onChange={handleGenderChange}
+          value={selectedGender}
+        >
+          <option value="">-- Select gender at birth --</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
         </select>
       </div>
       <ResponsiveContainer width="100%" height={400}>

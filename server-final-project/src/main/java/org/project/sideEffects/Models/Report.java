@@ -21,12 +21,16 @@ public class Report {
     @Column
     private int age;
 
+    @Column
+    private String gender;
+
     public Report() {}
 
     public Report(Product product, SideEffect sideEffect) {
         this.product = product;
         this.sideEffect = sideEffect;
         age = -1;
+        gender= null;
     }
 
     public long getId() {
@@ -47,5 +51,12 @@ public class Report {
 
     public void setAge(int newAge) {
         age = newAge;
+    }
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

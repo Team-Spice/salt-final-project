@@ -29,7 +29,7 @@ type FirstChartProps = {
   count: string | undefined;
   reportId: number;
   totalReport: ReportTypeAll[];
-  onAgeSelected: (selectedAge: string) => void;
+  onAgeAndGenderSelected: (selectedAge: string, selectedGender: string) => void;
 };
 
 const FirstChart = ({
@@ -38,16 +38,17 @@ const FirstChart = ({
   count,
   reportId,
   totalReport,
-  onAgeSelected,
+  onAgeAndGenderSelected,
 }: FirstChartProps) => {
   const navigate = useNavigate();
 
   const [age, setAge] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
 
   const handleSubmit = (e: InputFormEvent) => {
     e.preventDefault();
-    updateReport(reportId, age);
-    onAgeSelected(age);
+    updateReport(reportId, age, gender);
+    onAgeAndGenderSelected(age, gender);
     navigate("/MainChart");
   };
   return (
@@ -71,6 +72,19 @@ const FirstChart = ({
           onChange={(a) => setAge(a.target.value)}
           type="number"
         ></input>
+        <div>
+          <label htmlFor="gender">Select Gender:</label>
+          <select
+            id="gender"
+            onChange={(e) => setGender(e.target.value)}
+            value={gender}
+          >
+            <option value="">-- Select gender at birth --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
         <button type="submit">submit</button>
       </form>
     </>

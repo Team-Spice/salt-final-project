@@ -50,7 +50,7 @@ public class ReportController {
             @PathVariable long id) {
         try {
             System.out.println("age = " + dto.age());
-            reportService.updateReport(id, dto.age());
+            reportService.updateReport(id, dto.age(), dto.gender());
             return ResponseEntity.accepted().build();
         } catch (Exception e) {
             return ResponseEntity.noContent().build();
@@ -73,7 +73,7 @@ public class ReportController {
             if (dto.age() < 0) {
                 throw new IllegalArgumentException("Age cannot be negative");
             }
-            List<Report> reportList = reportService.getDemographicReports(productId, dto.age());
+            List<Report> reportList = reportService.getDemographicReports(productId, dto.age(), dto.gender());
             List<ReportChartDTO> chartDTOList = ReportChartDTO.reportListToDTO(reportList);
             return ResponseEntity.ok(chartDTOList);
         } catch (Exception e) {

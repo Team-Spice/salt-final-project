@@ -33,13 +33,17 @@ export const postReport = async (productId: number, sideEffectId: number) => {
   return reportId;
 };
 
-export const updateReport = async (reportId: number, newAge: string) => {
+export const updateReport = async (
+  reportId: number,
+  newAge: string,
+  newGender: string
+) => {
   await fetch(`${VITE_API_BASE_URL}/reports/${reportId}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify({ age: newAge }),
+    body: JSON.stringify({ age: newAge, gender: newGender }),
   });
 };
 
@@ -58,7 +62,8 @@ export const getAllReportsBySideEffect = async (productId: number) => {
 
 export const getDemographicChartData = async (
   productId: number,
-  newAge: number
+  newAge: number,
+  newGender: string
 ) => {
   try {
     const response = await fetch(
@@ -68,7 +73,7 @@ export const getDemographicChartData = async (
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ age: newAge }),
+        body: JSON.stringify({ age: newAge, gender: newGender }),
       }
     );
     if (!response.ok) {

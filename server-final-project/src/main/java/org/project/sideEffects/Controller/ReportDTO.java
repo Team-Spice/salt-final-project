@@ -1,4 +1,4 @@
 package org.project.sideEffects.Controller;
 
-public record ReportDTO(int age) {
+public record ReportDTO(int age, String gender) {
 }
