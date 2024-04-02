@@ -60,6 +60,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         </select>
       </form>
       <div className="div-camera">
+        <h1 className="h1-barcode-text">Scan Barcode:</h1>
         <button
           className="camera-button button--primary"
           onClick={() => setScannerOpen(true)}

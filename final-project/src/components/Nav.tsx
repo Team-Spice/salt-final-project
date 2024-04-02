@@ -8,7 +8,7 @@ const Nav = () => {
         <img src={logo} alt="logo" />
       </Link>
       <Link to="/">
-        <button>Home</button>
+        <button className="button-home">Home</button>
       </Link>
     </nav>
   );

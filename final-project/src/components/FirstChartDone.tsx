@@ -15,18 +15,18 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
     <ResponsiveContainer
       className="container-first-chart "
       width="100%"
-      height={200}
+      height={300}
     >
       <PieChart>
         <Pie
-          className="first-pie-chart sm"
+          className="first-pie-chart "
           data={formattedData}
-          isAnimationActive={false}
+          isAnimationActive={true}
           dataKey="value"
           nameKey="name"
           cx="50%"
-          cy="40%"
-          outerRadius="50%"
+          cy="50%"
+          outerRadius="70%"
           fill="#d0006f"
           label={({ name, value }) => `${name}: ${value}`}
         />

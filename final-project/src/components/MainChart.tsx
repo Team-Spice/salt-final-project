@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { getDemographicChartData } from "../api";
 import { ReportChartDTO } from "../types";
+import { Link } from "react-router-dom";
 
 type MainChartProps = {
   productId: number;
@@ -36,15 +37,12 @@ const MainChart = ({
     }
   }, [selectedAge, selectedGender]);
 
-  const fetchDemographicData = async (
-    age: string,
-    gender: string
-  ) => {
+  const fetchDemographicData = async (age: string, gender: string) => {
     try {
-      console.log("fetching, age:",age,"gender:",gender);
+      console.log("fetching, age:", age, "gender:", gender);
 
       let newData: ReportChartDTO[] = [];
-        newData = await getDemographicChartData(productId, age, gender);
+      newData = await getDemographicChartData(productId, age, gender);
       setChartData(newData);
     } catch (error) {
       console.error("Error fetchingg:", error);
@@ -52,11 +50,15 @@ const MainChart = ({
   };
 
   return (
-    <div>
-      <h2>Main Chart</h2>
-      <div>
+    <div className="div-main-chart flex flex-col">
+      <h2 className="h2-main-chart mb-6 text-2xl">Main Chart</h2>
+      <div className="div-select-age flex flex-col">
         <label htmlFor="age">Select Age:</label>
-        <select id="age" onChange={(e) => setSelectedAge(e.target.value)} value={selectedAge}>
+        <select
+          id="age"
+          onChange={(e) => setSelectedAge(e.target.value)}
+          value={selectedAge}
+        >
           <option value="">-- Select age --</option>
           {Array.from({ length: 120 }, (_, age) => (
             <option key={age} value={age}>
@@ -65,7 +67,7 @@ const MainChart = ({
           ))}
         </select>
       </div>{" "}
-      <div>
+      <div className="div-select-gender flex flex-col">
         <label htmlFor="gender">Select Gender:</label>
         <select
           id="gender"
@@ -78,7 +80,10 @@ const MainChart = ({
           <option value="Other">Other</option>
         </select>
       </div>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer
+        className="container-main-chart w-full h-96 mt-6"
+        height={400}
+      >
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
@@ -87,9 +92,14 @@ const MainChart = ({
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="amount" fill="#8884d8" />
+          <Bar dataKey="amount" fill="#d0006f" />
         </BarChart>
       </ResponsiveContainer>
+      <Link to={"/"}>
+        <button className="button-report-new button--primary ">
+          Report a new medicament
+        </button>
+      </Link>
     </div>
   );
 };

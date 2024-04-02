@@ -6,7 +6,7 @@ body {
   background-color: #ddd;
 }
 main {
-  @apply bg-white p-3 mx-10 rounded-2xl min-h-[90vh] flex flex-col gap-10;
+  @apply bg-white p-3 mx-10 rounded-2xl min-h-[90vh] flex flex-col gap-2;
   border: 1px solid #d7d7d7;
 }
 
@@ -50,6 +50,18 @@ select,
   align-self: center;
 }
 
+/* Main Chart */
+
+.button-report-new {
+  padding: 0;
+}
+
+/* First Chart */
+
+/* .container-first-chart {
+  @apply w-full h-74;
+} */
+
 .input-age {
   border-bottom: 1px solid #aaa;
 }
@@ -68,17 +80,18 @@ select,
     display: none;
   }
   .div-camera {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full mt-10 text-2xl;
   }
+
   .camera-button {
     display: inline;
     margin-top: 8%;
-    width: fit-content;
+    width: 40%;
     align-self: center;
   }
 }
 @media (min-width: 1024px) {
-  .camera-button {
+  .h1-barcode-text {
     display: none;
   }
   /* .form-home {
