@@ -1329,8 +1329,33 @@ html {
   margin-bottom: 0.5rem;
 }
 
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .flex {
   display: flex;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.w-3\/5 {
+  width: 60%;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .flex-col {
@@ -1343,6 +1368,10 @@ html {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.self-center {
+  align-self: center;
 }
 
 .bg-white {
@@ -1377,7 +1406,10 @@ body {
 main {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
+  display: flex;
   min-height: 90vh;
+  flex-direction: column;
+  gap: 2.5rem;
   border-radius: 1rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -1388,7 +1420,7 @@ main {
 button {
   line-height: 1.25;
   font-family: LexiaLightItalic, Times, "Times New Roman", serif;
-  text-align: left;
+  text-align: center;
   text-decoration: none;
   position: relative;
   display: inline-block;
@@ -1412,7 +1444,8 @@ button {
   background-color: #555;
 }
 
-select {
+select,
+.input-age {
   padding: 0.25rem;
   background-color: #f9fafb;
   background-size: 10px;
@@ -1421,4 +1454,54 @@ select {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
   outline: none;
+  width: 50%;
+  align-self: center;
+}
+
+.input-age {
+  border-bottom: 1px solid #aaa;
+}
+
+.form-home {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-age-first-chart,
+.div-gender-select-submit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .form-home {
+    display: none;
+  }
+
+  .div-camera {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .camera-button {
+    display: inline;
+    margin-top: 8%;
+    width: -moz-fit-content;
+    width: fit-content;
+    align-self: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .camera-button {
+    display: none;
+  }
+
+  /* .form-home {
+    display: flex;
+    flex-direction: column;
+  } */
 }

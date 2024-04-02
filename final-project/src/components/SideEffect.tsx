@@ -28,10 +28,11 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
     <>
       <h2>Side effects</h2>
       <form
-        className="form-side-effect flex flex-col"
+        className="form-side-effect flex flex-col "
         onSubmit={handleFormSubmit}
       >
         <select
+          className="select-side-effect w-3/5"
           id="sideEffectSelect"
           onChange={(e) => setSelection(e.target.value)}
         >
@@ -45,7 +46,7 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
         </select>
         <button
           disabled={!selection}
-          className={`button button--primary ${
+          className={`button button--primary w-24 self-center ${
             !selection && "button--disabled"
           }`}
           type="submit"

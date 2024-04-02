@@ -12,7 +12,11 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer
+      className="container-first-chart "
+      width="100%"
+      height={200}
+    >
       <PieChart>
         <Pie
           className="first-pie-chart sm"
@@ -21,9 +25,9 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
           dataKey="value"
           nameKey="name"
           cx="50%"
-          cy="50%"
-          outerRadius="70%"
-          fill="#8884d8"
+          cy="40%"
+          outerRadius="50%"
+          fill="#d0006f"
           label={({ name, value }) => `${name}: ${value}`}
         />
       </PieChart>

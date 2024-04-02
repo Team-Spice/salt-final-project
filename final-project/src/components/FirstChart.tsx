@@ -40,7 +40,6 @@ const FirstChart = ({
   chartData,
   onAgeAndGenderSelected,
 }: FirstChartProps) => {
-
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
 
@@ -56,31 +55,32 @@ const FirstChart = ({
         Thank you for submitting, {count} number of people have reported{" "}
         {sideEffectName} as a side effect for {productName}!
       </p>
-      <FirstChartDone
-        chartData={chartData}
-      />
+      <FirstChartDone chartData={chartData} />
       <p>Want to see more?</p>
-      <form onSubmit={handleSubmit}>
+      <form className="form-age-first-chart" onSubmit={handleSubmit}>
         <label htmlFor="formAge">Age</label>
         <input
+          className="input-age"
           value={age}
           onChange={(a) => setAge(a.target.value)}
           type="number"
         ></input>
-        <div>
+        <div className="div-gender-select-submit">
           <label htmlFor="gender">Select Gender:</label>
           <select
             id="gender"
             onChange={(e) => setGender(e.target.value)}
             value={gender}
           >
-            <option value="">-- Select gender at birth --</option>
+            <option value=""></option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
+          <button className="button--primary w-fit self-center" type="submit">
+            submit
+          </button>
         </div>
-        <button type="submit">submit</button>
       </form>
     </>
   );

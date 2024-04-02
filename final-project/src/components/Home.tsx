@@ -29,23 +29,28 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
 
   const handleScan = async (result: string) => {
     console.log(result);
-    const {error, data } = await getProduct(result);
+    const { error, data } = await getProduct(result);
 
     if (error) {
       setErrorMessage(error);
-    }
-    else if (data){
+    } else if (data) {
       setProduct(data);
       setErrorMessage("");
     }
     setScannerOpen(false);
-  }
+  };
 
   return (
     <>
-      <h2>Select product</h2>
-      <form>
-        <select name="product-select" id="product-select" onChange={onSelect}>
+      <form className="form-home">
+        <label className="label-product" htmlFor="product-select">
+          Select a product:{" "}
+        </label>
+        <select
+          name="product-select w-full"
+          id="product-select"
+          onChange={onSelect}
+        >
           <option value=""></option>
           {productList.map((product) => (
             <option key={product.id} value={product.name}>
@@ -54,19 +59,32 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
           ))}
         </select>
       </form>
-      <button onClick={() => setScannerOpen(true)}>Camera</button>
-      {errorMessage && <p className="text-red-600">{errorMessage}</p>}
-      {scannerOpen && <BarcodeScanner onScan={handleScan} />}
+      <div className="div-camera">
+        <button
+          className="camera-button button--primary"
+          onClick={() => setScannerOpen(true)}
+        >
+          Camera
+        </button>
+        {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+        {scannerOpen && <BarcodeScanner onScan={handleScan} />}
+      </div>
       {product && !errorMessage && (
-        <div className="product-container flex-col flex-col justify-between ">
-          <p>{product.name}</p>
-          <p>Is this the correct medicament?</p>
-          <button
-            className="button button--primary"
-            onClick={() => setConfirmed(true)}
-          >
-            Confirm
-          </button>
+        <div className="product-container flex flex-col mb-8">
+          <p className="product-name-home">{product.name}</p>
+          {!confirmed && (
+            <>
+              <p className="product-confirmation mt-8">
+                Is this the correct medicament?
+              </p>
+              <button
+                className="button button--primary w-fit self-center"
+                onClick={() => setConfirmed(true)}
+              >
+                Confirm
+              </button>{" "}
+            </>
+          )}
         </div>
       )}
       {product && confirmed && (
