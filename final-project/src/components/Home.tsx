@@ -24,7 +24,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
 
   const handleSideEffectSelect = (sideEffect: SideEffectType) => {
     product && handleOnClick(product, sideEffect);
-  }
+  };
 
   const handleScan = async (result: string) => {
     console.log(result);
@@ -36,10 +36,10 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
 
   return (
     <>
-    <h2>Select product</h2>
+      <h2>Select product</h2>
       <form>
         <select name="product-select" id="product-select" onChange={onSelect}>
-          <option value="">-- Select product --</option>
+          <option value=""></option>
           {productList.map((product) => (
             <option key={product.id} value={product.name}>
               {product.name}
@@ -53,10 +53,20 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         <div className="product-container flex-col flex-col justify-between ">
           <p>{product.name}</p>
           <p>Is this the correct medicament?</p>
-          <button className="button button--primary" onClick={() => setConfirmed(true)}>Confirm</button>
+          <button
+            className="button button--primary"
+            onClick={() => setConfirmed(true)}
+          >
+            Confirm
+          </button>
         </div>
       )}
-      {product && confirmed && <SideEffect sideEffects={product.sideEffectList} handleOnClick={handleSideEffectSelect}/>}
+      {product && confirmed && (
+        <SideEffect
+          sideEffects={product.sideEffectList}
+          handleOnClick={handleSideEffectSelect}
+        />
+      )}
     </>
   );
 };

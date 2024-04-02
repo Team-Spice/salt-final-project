@@ -27,9 +27,15 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
   return (
     <>
       <h2>Side effects</h2>
-      <form className="flex flex-col" onSubmit={handleFormSubmit}>
-        <select id="sideEffectSelect" onChange={(e) => setSelection(e.target.value)}>
-          <option value="">-- Select side effect --</option>
+      <form
+        className="form-side-effect flex flex-col"
+        onSubmit={handleFormSubmit}
+      >
+        <select
+          id="sideEffectSelect"
+          onChange={(e) => setSelection(e.target.value)}
+        >
+          <option value=""></option>
           {sideEffects &&
             sideEffects.map((effect) => (
               <option key={effect.id} value={effect.name}>
@@ -37,7 +43,15 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
               </option>
             ))}
         </select>
-        <button disabled={!selection} className={`button button--primary ${!selection && 'button--disabled'}`} type="submit">next</button>
+        <button
+          disabled={!selection}
+          className={`button button--primary ${
+            !selection && "button--disabled"
+          }`}
+          type="submit"
+        >
+          next
+        </button>
       </form>
       {/* <Link to="/">
         <button>back</button>
