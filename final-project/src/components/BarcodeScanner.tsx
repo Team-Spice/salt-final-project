@@ -1,22 +1,23 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useZxing } from "react-zxing";
 
-const BarcodeScanner = () => {
-  const [result, setResult] = useState("");
+const BarcodeScanner = ({ onScan }: { onScan: (result: string) => void }) => {
+  // const [result, setResult] = useState("");
 
   const { ref } = useZxing({
     onDecodeResult(result) {
-      setResult(result.getText());
+      // setResult(result.getText());
+      onScan(result.getText());
     },
   });
 
   return (
     <>
       <video ref={ref} />
-      <p>
+      {/* <p>
         <span>Last result:</span>
         <span>{result}</span>
-      </p>
+      </p> */}
     </>
   );
 

@@ -2,6 +2,12 @@ import { Product, ReportChartDTO, ReportType, ReportTypeAll } from "./types";
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
+export const getProduct = async (barcode: string) => {
+  const response = await fetch(`${VITE_API_BASE_URL}/product/${barcode}`);
+  const data: Product = await response.json();
+  return data;
+}
+
 export const getProductList = async () => {
   const response = await fetch(VITE_API_BASE_URL + "/product");
   const data: Product[] = await response.json();

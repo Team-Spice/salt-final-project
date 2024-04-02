@@ -22,10 +22,10 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping("/product/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable long id) {
+    @GetMapping("/product/{barcode}")
+    public ResponseEntity<Product> getProduct(@PathVariable String barcode) {
         try {
-            Product product = service.getProduct(id);
+            Product product = service.getProduct(barcode);
             return ResponseEntity.ok(product);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

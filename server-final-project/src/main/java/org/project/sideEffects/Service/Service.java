@@ -22,8 +22,12 @@ public class Service {
         this.sideEffectRepo = sideEffectRepo;
     }
 
+    public Product getProduct(String barcode) {
+        return productRepo.findByBarcode(barcode);
+    }
+
     public Product getProduct(long id) {
-        return productRepo.findById(id).orElseThrow(() -> (new IllegalArgumentException("Product with id: " + id + " not found")));
+        return productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + id));
     }
 
     public List<Product> findAll() {

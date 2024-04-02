@@ -2,6 +2,7 @@ import { Product, SideEffectType } from "../types";
 import { ChangeEvent, useState } from "react";
 import SideEffect from "./SideEffect";
 import BarcodeScanner from "./BarcodeScanner";
+import { getProduct } from "../api";
 
 type HomeProps = {
   productList: Product[];
@@ -25,6 +26,14 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
     product && handleOnClick(product, sideEffect);
   }
 
+  const handleScan = async (result: string) => {
+    console.log(result);
+    const newProduct = await getProduct(result);
+
+    setScannerOpen(false);
+    setProduct(newProduct);
+  }
+
   return (
     <>
     <h2>Select product</h2>
@@ -39,7 +48,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         </select>
       </form>
       <button onClick={() => setScannerOpen(true)}>Camera</button>
-      {scannerOpen && <BarcodeScanner />}
+      {scannerOpen && <BarcodeScanner onScan={handleScan} />}
       {product && (
         <div className="product-container flex-col flex-col justify-between ">
           <p>{product.name}</p>

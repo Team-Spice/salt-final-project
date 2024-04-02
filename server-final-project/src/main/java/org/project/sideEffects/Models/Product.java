@@ -15,6 +15,8 @@ public class Product {
     @Column
     private String name;
     @Column
+    private String barcode;
+    @Column
     private String brand;
     @Column
     private String description;
@@ -37,6 +39,10 @@ public class Product {
 
     public String getName() {
         return name;
+    }
+
+    public String getBarcode() {
+        return barcode;
     }
 
     public String getBrand() {
