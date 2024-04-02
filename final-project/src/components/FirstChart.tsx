@@ -56,7 +56,6 @@ const FirstChart = ({
         Thank you for submitting, {count} number of people have reported{" "}
         {sideEffectName} as a side effect for {productName}!
       </p>
-      <p>INSERT CHART HERE</p>
       <FirstChartDone
         chartData={chartData}
       />

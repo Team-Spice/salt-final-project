@@ -3,7 +3,7 @@ import reactLogo from "../assets/react.svg";
 
 const Nav = () => {
   return (
-    <nav className="bg-white flex justify-between items-center p-1.5 sticky mb-2">
+    <nav className="bg-white flex justify-between items-center py-1.5 px-4 sticky mb-2">
       <Link to="/">
         <img src={reactLogo} alt="logo" />
       </Link>

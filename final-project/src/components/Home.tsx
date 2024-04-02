@@ -1,6 +1,7 @@
 import { Product, SideEffectType } from "../types";
 import { ChangeEvent, useState } from "react";
 import SideEffect from "./SideEffect";
+import BarcodeScanner from "./BarcodeScanner";
 
 type HomeProps = {
   productList: Product[];
@@ -10,6 +11,7 @@ type HomeProps = {
 const Home = ({ productList, handleOnClick }: HomeProps) => {
   const [product, setProduct] = useState<Product>();
   const [confirmed, setConfirmed] = useState(false);
+  const [scannerOpen, setScannerOpen] = useState(false);
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -36,12 +38,13 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
           ))}
         </select>
       </form>
-      {/* <button onClick={handleOnClick}>Camera</button> */}
+      <button onClick={() => setScannerOpen(true)}>Camera</button>
+      {scannerOpen && <BarcodeScanner />}
       {product && (
         <div className="product-container flex-col flex-col justify-between ">
           <p>{product.name}</p>
           <p>Is this the correct medicament?</p>
-          <button onClick={() => setConfirmed(true)}>Confirm</button>
+          <button className="button button--primary" onClick={() => setConfirmed(true)}>Confirm</button>
         </div>
       )}
       {product && confirmed && <SideEffect sideEffects={product.sideEffectList} handleOnClick={handleSideEffectSelect}/>}

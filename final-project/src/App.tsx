@@ -85,7 +85,7 @@ function App() {
   return (
     <>
       <Nav />
-      <main className="bg-slate-300 p-3 ">
+      <main className="">
         <Routes>
           <Route
             path="/"
