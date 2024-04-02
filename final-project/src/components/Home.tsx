@@ -13,6 +13,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
   const [product, setProduct] = useState<Product>();
   const [confirmed, setConfirmed] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -28,10 +29,16 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
 
   const handleScan = async (result: string) => {
     console.log(result);
-    const newProduct = await getProduct(result);
+    const {error, data } = await getProduct(result);
 
+    if (error) {
+      setErrorMessage(error);
+    }
+    else if (data){
+      setProduct(data);
+      setErrorMessage("");
+    }
     setScannerOpen(false);
-    setProduct(newProduct);
   }
 
   return (
@@ -48,8 +55,9 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         </select>
       </form>
       <button onClick={() => setScannerOpen(true)}>Camera</button>
+      {errorMessage && <p className="text-red-600">{errorMessage}</p>}
       {scannerOpen && <BarcodeScanner onScan={handleScan} />}
-      {product && (
+      {product && !errorMessage && (
         <div className="product-container flex-col flex-col justify-between ">
           <p>{product.name}</p>
           <p>Is this the correct medicament?</p>

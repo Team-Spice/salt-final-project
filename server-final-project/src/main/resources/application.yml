@@ -7,7 +7,6 @@ spring:
     init:
       platform: mssql-jdbc
       mode: never
-      #platform: postgresql
   datasource:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: ${AZURE_DB_USER}

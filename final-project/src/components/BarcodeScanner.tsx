@@ -6,6 +6,10 @@ const BarcodeScanner = ({ onScan }: { onScan: (result: string) => void }) => {
 
   const { ref } = useZxing({
     onDecodeResult(result) {
+      const text = result.getText();
+      if (text.length !== 13) {
+        return;
+      }
       // setResult(result.getText());
       onScan(result.getText());
     },

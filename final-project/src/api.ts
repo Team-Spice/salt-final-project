@@ -1,11 +1,26 @@
 import { Product, ReportChartDTO, ReportType, ReportTypeAll } from "./types";
 
+type ResponseType<T> = {
+  error: string | null;
+  data: T | null;
+}
+
 const { VITE_API_BASE_URL } = import.meta.env;
 
-export const getProduct = async (barcode: string) => {
-  const response = await fetch(`${VITE_API_BASE_URL}/product/${barcode}`);
-  const data: Product = await response.json();
-  return data;
+export const getProduct = async (barcode: string): Promise<ResponseType<Product>> => {
+  try {
+    const response = await fetch(`${VITE_API_BASE_URL}/product/${barcode}`);
+    const data: Product = await response.json();
+    return { error: null, data: data };
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      // const res: ResponseType<Product> = 
+      return { error: e.message, data: null };
+      // return res;
+    }
+    // console.log("something unexpected happened");
+    return { error: "something unexpected happened", data: null }
+  }
 }
 
 export const getProductList = async () => {
