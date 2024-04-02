@@ -1,23 +1,31 @@
-// import { Link } from "react-router-dom";
-import { Product } from "../types";
+import { Product, SideEffectType } from "../types";
 import { ChangeEvent, useState } from "react";
+import SideEffect from "./SideEffect";
 
 type HomeProps = {
   productList: Product[];
-  handleOnClick: (product: Product) => void;
+  handleOnClick: (product: Product, sideEffect: SideEffectType) => void;
 };
 
 const Home = ({ productList, handleOnClick }: HomeProps) => {
   const [product, setProduct] = useState<Product>();
+  const [confirmed, setConfirmed] = useState(false);
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const selectedProduct = productList.find((p) => p.name === e.target.value);
+
+    setConfirmed(false);
     setProduct(selectedProduct);
   };
 
+  const handleSideEffectSelect = (sideEffect: SideEffectType) => {
+    product && handleOnClick(product, sideEffect);
+  }
+
   return (
     <>
+    <h2>Select product</h2>
       <form>
         <select name="product-select" id="product-select" onChange={onSelect}>
           <option value="">-- Select product --</option>
@@ -33,69 +41,12 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         <div className="product-container flex-col flex-col justify-between ">
           <p>{product.name}</p>
           <p>Is this the correct medicament?</p>
-          <button onClick={() => handleOnClick(product)}>Confirm</button>
+          <button onClick={() => setConfirmed(true)}>Confirm</button>
         </div>
       )}
+      {product && confirmed && <SideEffect sideEffects={product.sideEffectList} handleOnClick={handleSideEffectSelect}/>}
     </>
   );
 };
 
 export default Home;
-// import { useState } from "react";
-// import { BarcodeScanner } from "@thewirv/react-barcode-scanner";
-// import { Product, SideEffectType } from "../types";
-
-// type HomeProps = {
-//   productList: Product[];
-//   handleOnClick: (product: Product) => void;
-// };
-
-// const Home = ({ productList }: HomeProps) => {
-//   const [scannedProduct, setScannedProduct] = useState<string | null>(null);
-//   const [sideEffects, setSideEffects] = useState<string[]>([]);
-//   const [doScan, setDoScan] = useState<boolean>(true);
-
-//   const handleScanSuccess = (data: string) => {
-//     setScannedProduct(data);
-//     const product = productList.find((p) => p.barcode === data);
-//     if (product) {
-//       const effectNames = product.sideEffectList.map(
-//         (effect: SideEffectType) => effect.name
-//       );
-//       setSideEffects(effectNames);
-//     } else {
-//       setSideEffects([]);
-//     }
-//   };
-
-//   const handleScanError = (error?: Error) => {
-//     console.error("Barcode scan error:", error);
-//   };
-
-//   const handleScanLoad = () => {
-//     console.log("Barcode scanner loaded successfully!");
-//   };
-
-//   return (
-//     <div>
-//       <BarcodeScanner
-//         doScan={doScan}
-//         onSuccess={handleScanSuccess}
-//         onError={handleScanError}
-//         onLoad={handleScanLoad}
-//         containerStyle={{ width: "100%" }}
-//       />
-//       <p>Scanned Product: {scannedProduct}</p>
-//       <div>
-//         <h3>Side Effects:</h3>
-//         <ul>
-//           {sideEffects.map((effect, index) => (
-//             <li key={index}>{effect}</li>
-//           ))}
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Home;

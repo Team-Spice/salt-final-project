@@ -8,7 +8,6 @@ import {
   ReportTypeAll,
 } from "./types";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import SideEffect from "./components/SideEffect";
 import FirstChart from "./components/FirstChart";
 import MainChart from "./components/MainChart";
 import { useEffect, useState } from "react";
@@ -32,30 +31,25 @@ function App() {
   // const [, setChartData] = useState<ReportChartDTO[]>([]);
   const [selectedAge, setSelectedAge] = useState<string>("");
   const [genderSelected, setGenderSelected] = useState<string>("");
-
+  
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+  
   const fetchProduct = async () => {
     const newProduct = await getProductList();
-    // console.log(newProduct);
     setProductList(newProduct);
   };
 
-  const updateProduct = (selectedProduct: Product) => {
-    if (selectedProduct) {
-      setProduct(selectedProduct);
-      navigate("/SideEffect");
-    }
-  };
-
-  const updateSideEffect = async (selectedEffect: SideEffectType) => {
-    if (!(product && selectedEffect)) {
-      return;
-    }
-    const count = await getSideEffectCount(product.id, selectedEffect.id);
-    const postResponse = await postReport(product.id, selectedEffect.id);
+  const sendReport = async (selectedProduct: Product, selectedEffect: SideEffectType) => {
+    setProduct(selectedProduct);
+    
+    const count = await getSideEffectCount(selectedProduct.id, selectedEffect.id);
+    const postResponse = await postReport(selectedProduct.id, selectedEffect.id);
     const ReportTypeAllResponseBySideEffect = await getAllReportsBySideEffect(
-      product.id
+      selectedProduct.id
     );
 
     setReportId(postResponse);
@@ -64,7 +58,8 @@ function App() {
     setReportTypeList(ReportTypeAllResponseBySideEffect);
 
     navigate("/FirstChart");
-  };
+  }
+
 
   const handleAgeAndGenderSubmit = async (age: string, gender: string) => {
     try {
@@ -86,9 +81,6 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetchProduct();
-  }, []);
 
   return (
     <>
@@ -98,16 +90,7 @@ function App() {
           <Route
             path="/"
             element={
-              <Home productList={productList} handleOnClick={updateProduct} />
-            }
-          />
-          <Route
-            path="/SideEffect"
-            element={
-              <SideEffect
-                sideEffects={product?.sideEffectList}
-                handleOnClick={updateSideEffect}
-              />
+              <Home productList={productList} handleOnClick={sendReport} />
             }
           />
           <Route
