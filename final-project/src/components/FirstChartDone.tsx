@@ -26,9 +26,10 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
           nameKey="name"
           cx="50%"
           cy="50%"
-          outerRadius="70%"
+          outerRadius="60%"
           fill="#d0006f"
           label={({ name, value }) => `${name}: ${value}`}
+          minAngle={20}
         />
       </PieChart>
     </ResponsiveContainer>
