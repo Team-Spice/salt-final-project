@@ -1418,13 +1418,14 @@ html {
 
 body {
   background-color: #ddd;
+  padding-bottom: 0.5rem;
 }
 
 main {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   display: flex;
-  min-height: 90vh;
+  min-height: 80vh;
   flex-direction: column;
   gap: 0.5rem;
   border-radius: 1rem;
