@@ -12,7 +12,7 @@ import {
 import { getChartDataByAgeRange } from "../api";
 import { ReportChartDTO } from "../types";
 import { Link } from "react-router-dom";
-import { ageGroup } from '../constants';
+import { ageGroup } from "../constants";
 
 type MainChartProps = {
   productId: number;
@@ -28,20 +28,27 @@ const MainChart = ({
   const [selectedAge, setSelectedAge] = useState(selectedAgeGroup);
   const [selectedGender, setSelectedGender] = useState(selectedGenderFromApp);
   const [chartData, setChartData] = useState<ReportChartDTO[]>([]);
-  // const [errorMessage, setErrorMessage] = useState<string>("No data available");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     const getData = async () => {
       await fetchDemographicData(selectedAge, selectedGender);
     };
-      getData();
+    getData();
   }, [selectedAge, selectedGender]);
 
   const fetchDemographicData = async (age: string, gender: string) => {
     try {
       // console.log("fetching, age:", age, "gender:", gender);
-      const newData: ReportChartDTO[] = await getChartDataByAgeRange(productId, age,gender);
-      // console.log("newdata:",newData);
+      const newData: ReportChartDTO[] = await getChartDataByAgeRange(
+        productId,
+        age,
+        gender
+      );
+
+      newData.length === 0
+        ? setErrorMessage("No data available")
+        : setErrorMessage("");
       setChartData(newData);
     } catch (error) {
       console.error("Error fetchingg:", error);
@@ -59,7 +66,11 @@ const MainChart = ({
           value={selectedAge}
         >
           <option value="-">-- Select age --</option>
-          {ageGroup.map((age) => <option key={age} value={age}>{age}</option>)}
+          {ageGroup.map((age) => (
+            <option key={age} value={age}>
+              {age}
+            </option>
+          ))}
         </select>
       </div>
       <div className="div-select-gender flex flex-col">
@@ -75,38 +86,40 @@ const MainChart = ({
           <option value="Other">Other</option>
         </select>
       </div>
-      {/* {errorMessage && (
+      {errorMessage && (
         <div className="form__error-message"> {errorMessage}</div>
-      )} */}
-      <ResponsiveContainer
-        className="container-main-chart h-96 mt-6 self-center"
-        width="100%"
-        height={330}
-      >
-        <BarChart
-          data={chartData}
-          margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
-          barCategoryGap={3}
-          barSize={60}
+      )}
+      {!errorMessage && (
+        <ResponsiveContainer
+          className="container-main-chart h-96 mt-6 self-center"
+          width="100%"
+          height={330}
         >
-          <XAxis tick={false}></XAxis>
+          <BarChart
+            data={chartData}
+            margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
+            barCategoryGap={3}
+            barSize={60}
+          >
+            <XAxis tick={false}></XAxis>
 
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="amount" name="Amount of Reports" fill="#d0006f">
-            <LabelList
-              dataKey="sideEffectName"
-              position="bottom"
-              style={{
-                fontSize: "10px",
-                textAlign: "center",
-                width: "100%",
-              }}
-            />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="amount" name="Amount of Reports" fill="#d0006f">
+              <LabelList
+                dataKey="sideEffectName"
+                position="bottom"
+                style={{
+                  fontSize: "10px",
+                  textAlign: "center",
+                  width: "100%",
+                }}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      )}
       <Link to={"/"}>
         <button className="button-report-new button--primary ">
           Report a new medicament
