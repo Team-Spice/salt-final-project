@@ -133,7 +133,7 @@ const MainChart = ({
       )}
       <Link to={"/"}>
         <button className="button-report-new button--primary ">
-          Report a new medicament
+          New report
         </button>
       </Link>
     </div>

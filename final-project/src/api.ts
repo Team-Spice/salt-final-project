@@ -25,7 +25,7 @@ export const getProduct = async (barcode: string): Promise<ResponseType<Product>
 export const getProductList = async () => {
   const response = await fetch(VITE_API_BASE_URL + "/product");
   const data: Product[] = await response.json();
-  return data;
+  return data.sort((a,b) => a.name>b.name ? 1 : (a.name<b.name ? -1 : 0));
 };
 
 export const getSideEffectCount = async (
@@ -70,7 +70,17 @@ export const getAllReportsBySideEffect = async (productId: number) => {
   );
   const data: ReportTypeAll[] = await response.json();
 
-  return data;
+  return data.sort((a,b) => {
+    const aName = a.sideEffectName;
+    const bName = b.sideEffectName;
+    if (aName > bName) {
+      return 1;
+    }
+    if (aName < bName) {
+      return -1;
+    }
+    return 0;
+  });
 };
 
 export const getChartDataByAgeRange = async (productId: number, ageGroup: string, gender: string) => {

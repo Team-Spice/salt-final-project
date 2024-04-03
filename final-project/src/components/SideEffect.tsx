@@ -40,7 +40,7 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
         >
           <option value=""></option>
           {sideEffects &&
-            sideEffects.map((effect) => (
+            sideEffects.sort((a,b) => a.name>b.name? 1:-1).map((effect) => (
               <option key={effect.id} value={effect.name}>
                 {effect.name}
               </option>
