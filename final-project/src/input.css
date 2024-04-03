@@ -52,12 +52,17 @@ select,
   background-color: #f9fafb;
   background-size: 10px;
   border: transparent;
-  border-bottom: 1px solid #d0006f;
+  /* border-bottom: 1px solid #d0006f; */
+  border-bottom: 1px solid #aaa;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
   outline: none;
   width: 50%;
   align-self: center;
+}
+
+select:focus {
+  border-bottom: 1px solid #d0006f;
 }
 
 /* Main Chart */
@@ -68,8 +73,8 @@ select,
   @apply w-full h-74;
 } */
 
-.input-age {
-  border-bottom: 1px solid #aaa;
+.input-age:focus {
+  border-bottom: 1px solid #d0006f;
 }
 
 .form-home {

@@ -54,9 +54,6 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
           Next
         </button>
       </form>
-      {/* <Link to="/">
-        <button>back</button>
-      </Link> */}
     </>
   );
 };

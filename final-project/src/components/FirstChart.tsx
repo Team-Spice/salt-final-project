@@ -1,21 +1,6 @@
-// import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-// import { updateReport } from "../api";
 import FirstChartDone from "./FirstChartDone";
 import { ReportTypeAll } from "../types";
-
-// const ageGroup = [
-//   "0-10",
-//   "11-20",
-//   "21-30",
-//   "31-40",
-//   "41-50",
-//   "51-60",
-//   "61-70",
-//   "71-80",
-//   "81-90",
-//   "91-",
-// ];
 
 type InputFormEvent = FormEvent<HTMLFormElement> & {
   target: {
@@ -36,22 +21,24 @@ const FirstChart = ({
   productName,
   sideEffectName,
   count,
-  // reportId,
   chartData,
   onAgeAndGenderSelected,
 }: FirstChartProps) => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
+
+  const isValidForm = ():boolean => {
+    return !!(age && gender);
+  }
 
   const handleSubmit = (e: InputFormEvent) => {
     e.preventDefault();
-    if (!(age || gender)) {
-      setErrorMessage("All fields cannot be empty");
+    if (!isValidForm()) {
+      // setErrorMessage("All fields cannot be empty");
       return;
     }
-    setErrorMessage("");
-    // updateReport(reportId, age, gender);
+    // setErrorMessage("");
     onAgeAndGenderSelected(age, gender);
   };
 
@@ -84,10 +71,10 @@ const FirstChart = ({
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
-          <button className="button--primary w-fit self-center" type="submit">
+          <button className={`button--primary w-fit self-center ${ !(age || gender) && 'button--disabled' }`} type="submit">
             Submit
           </button>
-          {errorMessage && <p className="p--error">{errorMessage}</p>}
+          {/* {errorMessage && <p className="p--error">{errorMessage}</p>} */}
         </div>
       </form>
     </>
