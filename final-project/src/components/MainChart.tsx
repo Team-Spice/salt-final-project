@@ -81,14 +81,18 @@ const MainChart = ({
         </select>
       </div>
       <ResponsiveContainer
-        className="container-main-chart w-full h-96 mt-6"
-        height={400}
+        className="container-main-chart h-96 mt-6 self-center"
+        width="80%"
+        height={350}
       >
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          barCategoryGap={3}
+          barSize={70}
         >
           <XAxis dataKey="sideEffectName" />
+
           <YAxis />
           <Tooltip />
           <Legend />
