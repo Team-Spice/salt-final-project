@@ -13,6 +13,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
   const [product, setProduct] = useState<Product>();
   const [confirmed, setConfirmed] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {

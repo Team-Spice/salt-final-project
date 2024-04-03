@@ -1413,6 +1413,10 @@ html {
   margin-bottom: 2rem;
 }
 
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -1423,6 +1427,10 @@ html {
 
 .flex {
   display: flex;
+}
+
+.h-5 {
+  height: 1.25rem;
 }
 
 .h-96 {
@@ -1437,6 +1445,10 @@ html {
   width: 60%;
 }
 
+.w-5 {
+  width: 1.25rem;
+}
+
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
@@ -1444,6 +1456,16 @@ html {
 
 .w-full {
   width: 100%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .flex-col {
@@ -1460,6 +1482,11 @@ html {
 
 .self-center {
   align-self: center;
+}
+
+.bg-indigo-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
 }
 
 .bg-white {
@@ -1485,6 +1512,14 @@ html {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.opacity-75 {
+  opacity: 0.75;
 }
 
 body {
