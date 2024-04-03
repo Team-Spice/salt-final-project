@@ -7,7 +7,7 @@ body {
   padding-bottom: 0.5rem;
 }
 main {
-  @apply bg-white p-3 mx-2 rounded-2xl min-h-[80vh] flex flex-col gap-2;
+  @apply bg-white p-3 mx-2 rounded-2xl min-h-[90vh] flex flex-col gap-2;
   border: 1px solid #d7d7d7;
 }
 
@@ -35,6 +35,10 @@ button {
 
 .button--disabled {
   background-color: #555;
+}
+
+.p--error {
+  @apply text-red-600;
 }
 
 select,

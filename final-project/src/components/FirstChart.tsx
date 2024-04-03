@@ -42,9 +42,15 @@ const FirstChart = ({
 }: FirstChartProps) => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e: InputFormEvent) => {
     e.preventDefault();
+    if (!(age || gender)) {
+      setErrorMessage("All fields cannot be empty");
+      return;
+    }
+    setErrorMessage("");
     updateReport(reportId, age, gender);
     onAgeAndGenderSelected(age, gender);
   };
@@ -64,6 +70,7 @@ const FirstChart = ({
           value={age}
           onChange={(a) => setAge(a.target.value)}
           type="number"
+          min={0}
         ></input>
         <div className="div-gender-select-submit">
           <label htmlFor="gender">Select Gender:</label>
@@ -80,6 +87,7 @@ const FirstChart = ({
           <button className="button--primary w-fit self-center" type="submit">
             submit
           </button>
+          {errorMessage && <p className="p--error">{errorMessage}</p>}
         </div>
       </form>
     </>

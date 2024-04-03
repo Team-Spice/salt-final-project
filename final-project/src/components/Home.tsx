@@ -63,11 +63,11 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         <h1 className="h1-barcode-text">Scan Barcode:</h1>
         <button
           className="camera-button button--primary"
-          onClick={() => setScannerOpen(true)}
+          onClick={() => setScannerOpen(!scannerOpen)}
         >
           Camera
         </button>
-        {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+        {errorMessage && <p className="p-error">{errorMessage}</p>}
         {scannerOpen && <BarcodeScanner onScan={handleScan} />}
       </div>
       {product && !errorMessage && (
