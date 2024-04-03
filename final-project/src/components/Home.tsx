@@ -44,7 +44,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
     <>
       <form className="form-home">
         <label className="label-product" htmlFor="product-select">
-          Select a product:{" "}
+          Select a product
         </label>
         <select
           name="product-select w-full"
@@ -60,7 +60,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         </select>
       </form>
       <div className="div-camera">
-        <h1 className="h1-barcode-text">Scan Barcode:</h1>
+        <h1 className="h1-barcode-text">Scan Barcode</h1>
         <button
           className="camera-button button--primary"
           onClick={() => setScannerOpen(!scannerOpen)}

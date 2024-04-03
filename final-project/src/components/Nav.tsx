@@ -7,9 +7,9 @@ const Nav = () => {
       <Link to="/">
         <img src={logo} alt="logo" />
       </Link>
-      <Link to="/">
+      {/* <Link to="/">
         <button className="button-home">Home</button>
-      </Link>
+      </Link> */}
     </nav>
   );
 };

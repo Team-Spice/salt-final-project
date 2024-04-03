@@ -51,7 +51,7 @@ const SideEffect = ({ sideEffects, handleOnClick }: SideEffectProps) => {
           }`}
           type="submit"
         >
-          next
+          Next
         </button>
       </form>
       {/* <Link to="/">

@@ -58,7 +58,7 @@ const FirstChart = ({
   return (
     <>
       <p>
-        Thank you for submitting, {count} number of people have reported{" "}
+        Thank you for submitting, {count} other people have reported{" "}
         {sideEffectName} as a side effect for {productName}!
       </p>
       <FirstChartDone chartData={chartData} />
@@ -73,7 +73,7 @@ const FirstChart = ({
           min={0}
         ></input>
         <div className="div-gender-select-submit">
-          <label htmlFor="gender">Select Gender:</label>
+          <label htmlFor="gender">Select Gender</label>
           <select
             id="gender"
             onChange={(e) => setGender(e.target.value)}
@@ -85,7 +85,7 @@ const FirstChart = ({
             <option value="Other">Other</option>
           </select>
           <button className="button--primary w-fit self-center" type="submit">
-            submit
+            Submit
           </button>
           {errorMessage && <p className="p--error">{errorMessage}</p>}
         </div>

@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url(https://db.onlinewebfonts.com/c/40470d861d6e0b412549fb42f2954e97?family=Lexia+Light+Italic);
+@import url(https://fonts.cdnfonts.com/css/helvetica-neue-5);
 
 body {
   background-color: #ddd;
@@ -9,11 +11,14 @@ body {
 main {
   @apply bg-white p-3 mx-2 rounded-2xl min-h-[90vh] flex flex-col gap-2;
   border: 1px solid #d7d7d7;
+  font-family: "Helvetica Neue";
 }
 
 button {
   line-height: 1.25;
-  font-family: LexiaLightItalic, Times, "Times New Roman", serif;
+  font-family: "Lexia Light Italic";
+  font-style: italic;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
   position: relative;
