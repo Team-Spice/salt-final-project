@@ -82,21 +82,28 @@ const MainChart = ({
       </div>
       <ResponsiveContainer
         className="container-main-chart h-96 mt-6 self-center"
-        width="80%"
+        width="100%"
         height={350}
       >
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           barCategoryGap={3}
-          barSize={70}
+          barSize={60}
         >
-          <XAxis dataKey="sideEffectName" />
+          <XAxis
+            dataKey="sideEffectName"
+            style={{
+              fontSize: "10px",
+              textAlign: "center",
+              width: "100%",
+            }}
+          />
 
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="amount" fill="#d0006f" />
+          <Bar dataKey="amount" name="Amount of Reports" fill="#d0006f" />
         </BarChart>
       </ResponsiveContainer>
       <Link to={"/"}>

@@ -26,7 +26,7 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
           nameKey="name"
           cx="50%"
           cy="50%"
-          outerRadius="60%"
+          outerRadius="47%"
           fill="#d0006f"
           label={({ name, value }) => `${name}: ${value}`}
           minAngle={20}
