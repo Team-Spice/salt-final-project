@@ -45,8 +45,9 @@ const FirstChart = ({
   return (
     <>
       <p>
-        Thank you for submitting, {count} other people have reported{" "}
-        {sideEffectName} as a side effect for {productName}!
+        Thank you for submitting, <span className="bolded">{count}</span> other
+        people have reported <span className="bolded">{sideEffectName}</span> as
+        a side effect for <span className="bolded">{productName}</span>!
       </p>
       <FirstChartDone chartData={chartData} />
       <p>Want to see more?</p>

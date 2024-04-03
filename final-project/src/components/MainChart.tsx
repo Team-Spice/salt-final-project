@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import { getDemographicChartData } from "../api";
 import { ReportChartDTO } from "../types";
@@ -26,15 +27,18 @@ const MainChart = ({
   const [selectedAge, setSelectedAge] = useState(selectedAgeFromApp);
   const [selectedGender, setSelectedGender] = useState(selectedGenderFromApp);
   const [chartData, setChartData] = useState<ReportChartDTO[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>("No data available");
 
   useEffect(() => {
     const getData = async () => {
       console.log("selected age:", selectedAge);
       await fetchDemographicData(selectedAge, selectedGender);
     };
-    // if (selectedAge || selectedGender) {
+    if (selectedAge || selectedGender) {
       getData();
-    // }
+    } else {
+      setErrorMessage("No data available");
+    }
   }, [selectedAge, selectedGender]);
 
   const fetchDemographicData = async (age: string, gender: string) => {
@@ -53,7 +57,7 @@ const MainChart = ({
     <div className="div-main-chart flex flex-col">
       <h2 className="h2-main-chart mb-6 text-2xl">Main Chart</h2>
       <div className="div-select-age flex flex-col">
-        <label htmlFor="age">Select Age:</label>
+        <label htmlFor="age">Select Age</label>
         <select
           id="age"
           onChange={(e) => setSelectedAge(e.target.value)}
@@ -68,7 +72,7 @@ const MainChart = ({
         </select>
       </div>
       <div className="div-select-gender flex flex-col">
-        <label htmlFor="gender">Select Gender:</label>
+        <label htmlFor="gender">Select Gender </label>
         <select
           id="gender"
           onChange={(e) => setSelectedGender(e.target.value)}
@@ -80,30 +84,36 @@ const MainChart = ({
           <option value="Other">Other</option>
         </select>
       </div>
+      {errorMessage && (
+        <div className="form__error-message"> {errorMessage}</div>
+      )}
       <ResponsiveContainer
         className="container-main-chart h-96 mt-6 self-center"
         width="100%"
-        height={350}
+        height={330}
       >
         <BarChart
           data={chartData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
           barCategoryGap={3}
           barSize={60}
         >
-          <XAxis
-            dataKey="sideEffectName"
-            style={{
-              fontSize: "10px",
-              textAlign: "center",
-              width: "100%",
-            }}
-          />
+          <XAxis tick={false}></XAxis>
 
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="amount" name="Amount of Reports" fill="#d0006f" />
+          <Bar dataKey="amount" name="Amount of Reports" fill="#d0006f">
+            <LabelList
+              dataKey="sideEffectName"
+              position="bottom"
+              style={{
+                fontSize: "10px",
+                textAlign: "center",
+                width: "100%",
+              }}
+            />
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
       <Link to={"/"}>

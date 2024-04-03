@@ -1539,9 +1539,18 @@ select:focus {
   .div-camera {
     display: none;
   }
+}
 
-  /* .form-home {
-    display: flex;
-    flex-direction: column;
-  } */
+.bolded {
+  font-weight: bolder;
+  color: #d0006f;
+}
+
+.form__error-message {
+  background-color: #f8f8f8;
+  color: red;
+  border: 1px solid red;
+  max-width: 440px;
+  margin: 20px auto;
+  padding: 10px;
 }

@@ -1,4 +1,4 @@
-import { PieChart, Pie, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, LabelList } from "recharts";
 import { ReportTypeAll } from "../types";
 
 type ChartProps = {
@@ -28,9 +28,20 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
           cy="50%"
           outerRadius="47%"
           fill="#d0006f"
-          label={({ name, value }) => `${name}: ${value}`}
           minAngle={20}
-        />
+          label={({ name }) => `${name}`}
+          style={{
+            fontSize: "10px",
+            textAlign: "center",
+            width: "10%",
+          }}
+        >
+          <LabelList
+            dataKey="value"
+            position="right"
+            style={{ fontSize: "10px" }}
+          />
+        </Pie>
       </PieChart>
     </ResponsiveContainer>
   );
