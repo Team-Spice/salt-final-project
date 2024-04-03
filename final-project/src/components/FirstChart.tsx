@@ -29,7 +29,7 @@ const FirstChart = ({
   // const [errorMessage, setErrorMessage] = useState("");
 
   const isValidForm = ():boolean => {
-    return !!(age && gender);
+    return !!(age || gender);
   }
 
   const handleSubmit = (e: InputFormEvent) => {

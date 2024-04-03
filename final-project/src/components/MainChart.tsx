@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { getChartDataByAgeRange } from "../api";
 import { ReportChartDTO } from "../types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ageGroup } from "../constants";
 
 type MainChartProps = {
@@ -23,20 +23,27 @@ type MainChartProps = {
 const MainChart = ({
   productId,
   selectedAgeGroup = "-",
-  selectedGenderFromApp = "-",
+  selectedGenderFromApp = "",
 }: MainChartProps) => {
-  const [selectedAge, setSelectedAge] = useState(selectedAgeGroup);
-  const [selectedGender, setSelectedGender] = useState(selectedGenderFromApp);
+  const [selectedAge, setSelectedAge] = useState("-");
+  const [selectedGender, setSelectedGender] = useState("");
   const [chartData, setChartData] = useState<ReportChartDTO[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    selectedAgeGroup && setSelectedAge(selectedAgeGroup);
+    selectedAgeGroup && setSelectedGender(selectedGenderFromApp);
+  }, [selectedAgeGroup, selectedGenderFromApp])
+  
   useEffect(() => {
     const getData = async () => {
       await fetchDemographicData(selectedAge, selectedGender);
     };
     getData();
   }, [selectedAge, selectedGender]);
-
+  
   const fetchDemographicData = async (age: string, gender: string) => {
     try {
       // console.log("fetching, age:", age, "gender:", gender);
@@ -55,6 +62,10 @@ const MainChart = ({
     }
   };
 
+  if (productId === 0) {
+    navigate("/");
+  }
+  
   return (
     <div className="div-main-chart flex flex-col">
       <h2 className="h2-main-chart mb-6 text-2xl">Main Chart</h2>

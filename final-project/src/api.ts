@@ -74,6 +74,9 @@ export const getAllReportsBySideEffect = async (productId: number) => {
 };
 
 export const getChartDataByAgeRange = async (productId: number, ageGroup: string, gender: string) => {
+  if (productId === 0) {
+    return;
+  }
   const range = ageGroup.split('-');
 
   const response = await fetch(`${VITE_API_BASE_URL}/reports/demographic-chart/${productId}?`
