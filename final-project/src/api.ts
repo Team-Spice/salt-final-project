@@ -1,4 +1,4 @@
-import { Product, ReportChartDTO, ReportType, ReportTypeAll } from "./types";
+import { Product, ReportType, ReportTypeAll } from "./types";
 
 type ResponseType<T> = {
   error: string | null;
@@ -36,7 +36,6 @@ export const getSideEffectCount = async (
     `${VITE_API_BASE_URL}/side-effect/${productId}/${sideEffectId}`
   );
   const data = await response.text();
-  // console.log(data);
   return data;
 };
 
@@ -48,9 +47,7 @@ export const postReport = async (productId: number, sideEffectId: number) => {
     }
   );
   const data: ReportType = await response.json();
-  // console.log("data " + data.id);
-  const reportId = data.id;
-  return reportId;
+  return data.id;
 };
 
 export const updateReport = async (
@@ -76,33 +73,11 @@ export const getAllReportsBySideEffect = async (productId: number) => {
   return data;
 };
 
-export const getDemographicChartData = async (
-  productId: number,
-  newAge: string,
-  newGender: string
-) => {
-  const age = newAge || -1;
-  // console.log("age is:", age)
-  try {
-    const response = await fetch(
-      `${VITE_API_BASE_URL}/reports/demographic-chart/${productId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ age: age, gender: newGender }),
-      }
-    );
+export const getChartDataByAgeRange = async (productId: number, ageGroup: string, gender: string) => {
+  const range = ageGroup.split('-');
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch demographic chart data");
-    }
-
-    const data: ReportChartDTO[] = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching demographic chart data:", error);
-    throw error;
-  }
-};
+  const response = await fetch(`${VITE_API_BASE_URL}/reports/demographic-chart/${productId}?`
+      + new URLSearchParams({ gender: gender, ageFrom: range[0], ageTo: range[1] }))
+  const data = await response.json();
+  return data;
+}

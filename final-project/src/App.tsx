@@ -4,7 +4,6 @@ import Home from "./components/Home";
 import {
   Product,
   SideEffectType,
-  // ReportChartDTO,
   ReportTypeAll,
 } from "./types";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -13,12 +12,12 @@ import MainChart from "./components/MainChart";
 import { useEffect, useState } from "react";
 import {
   getAllReportsBySideEffect,
-  // getDemographicChartData,
   getProductList,
   getSideEffectCount,
   postReport,
   updateReport,
 } from "./api";
+import { ageGroup } from "./constants";
 
 function App() {
   const [productList, setProductList] = useState<Product[]>([]);
@@ -26,17 +25,28 @@ function App() {
   const [sideEffect, setSideEffect] = useState<SideEffectType>();
   const [affectedCount, setAffectedCount] = useState("");
 
-  const [reportId, setReportId] = useState<number>(-1);
+  const [reportId, setReportId] = useState(-1);
   const [reportTypeList, setReportTypeList] = useState<ReportTypeAll[]>([]);
-  // const [, setChartData] = useState<ReportChartDTO[]>([]);
-  const [selectedAge, setSelectedAge] = useState<string>("");
-  const [genderSelected, setGenderSelected] = useState<string>("");
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState("");
+  const [genderSelected, setGenderSelected] = useState("");
   
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  const getAgeGroup = (age: string) => {
+    if (age) { 
+      for (const s of ageGroup) {
+        const range = s.split('-');
+        if (age >= range[0] && age <= range[1]) {
+          return s;
+        }
+      }
+    }
+    return '';
+  }
   
   const fetchProduct = async () => {
     const newProduct = await getProductList();
@@ -64,8 +74,10 @@ function App() {
   const handleAgeAndGenderSubmit = async (age: string, gender: string) => {
     try {
       await updateReport(reportId, age, gender);
+      const newAgeGroup = getAgeGroup(age);
+
       setGenderSelected(gender);
-      setSelectedAge(age);
+      setSelectedAgeGroup(newAgeGroup);
       navigate("/MainChart");
     } catch (error) {
       console.error(error);
@@ -102,7 +114,7 @@ function App() {
             element={
               <MainChart
                 productId={product?.id ?? 0}
-                selectedAgeFromApp={selectedAge ?? ""}
+                selectedAgeGroup={selectedAgeGroup}
                 selectedGenderFromApp={genderSelected ?? ""}
               />
             }

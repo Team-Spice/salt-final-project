@@ -63,23 +63,6 @@ public class ReportController {
         return ResponseEntity.ok(chartDTOList);
     }
 
-    @PostMapping("/demographic-chart/{productId}")
-    public ResponseEntity<List<ReportChartDTO>> getChartData(
-            @PathVariable long productId,
-            @RequestBody ReportDTO dto
-    ) {
-        try {
-            /*if (dto.age() < 0) {
-                throw new IllegalArgumentException("Age cannot be negative");
-            }*/
-            List<Report> reportList = reportService.getDemographicReports(productId, dto.age(), dto.gender());
-            List<ReportChartDTO> chartDTOList = ReportChartDTO.reportListToDTO(reportList);
-            return ResponseEntity.ok(chartDTOList);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/product-report-summary/{productId}/{age}")
     public ResponseEntity<ProductReportSummaryDTO> getProductReportSummary(
             @PathVariable long productId,
@@ -96,20 +79,14 @@ public class ReportController {
         }
     }
 
-
-//    @GetMapping("/product-report-summary/{productId}")
-//    public ResponseEntity<ProductReportSummaryDTO> getProductReportSummary(@PathVariable long productId) {
-//        try {
-//            Product product = service.getProduct(productId);
-//            List<Report> allReports = reportService.getProductReports(productId);
-//            long totalReports = allReports.size();
-//            long reportsWithAgeAndSideEffects = allReports.stream()
-//                    .filter(report -> report.getAge() != -1 && report.getSideEffect() != null)
-//                    .count();
-//            return ResponseEntity.ok(new ProductReportSummaryDTO(product.getName(), totalReports, reportsWithAgeAndSideEffects));
-//        } catch (Exception e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
+    @GetMapping("/demographic-chart/{productId}")
+    public ResponseEntity<List<ReportChartDTO>> getWithAgeRange(
+            @PathVariable long productId,
+            @RequestParam String gender,
+            @RequestParam(defaultValue = "-1") int ageFrom,
+            @RequestParam(defaultValue = "-1") int ageTo) {
+        List<Report> reportList = reportService.getReportsByAgeRange(productId, gender, ageFrom, ageTo);
+        List<ReportChartDTO> chartDTOS = ReportChartDTO.reportListToDTO(reportList);
+        return ResponseEntity.ok(chartDTOS);
+    }
 }

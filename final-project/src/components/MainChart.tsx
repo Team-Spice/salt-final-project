@@ -9,44 +9,39 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import { getDemographicChartData } from "../api";
+import { getChartDataByAgeRange } from "../api";
 import { ReportChartDTO } from "../types";
 import { Link } from "react-router-dom";
+import { ageGroup } from '../constants';
 
 type MainChartProps = {
   productId: number;
-  selectedAgeFromApp: string;
+  selectedAgeGroup: string;
   selectedGenderFromApp: string;
 };
 
 const MainChart = ({
   productId,
-  selectedAgeFromApp = "",
-  selectedGenderFromApp = "",
+  selectedAgeGroup = "-",
+  selectedGenderFromApp = "-",
 }: MainChartProps) => {
-  const [selectedAge, setSelectedAge] = useState(selectedAgeFromApp);
+  const [selectedAge, setSelectedAge] = useState(selectedAgeGroup);
   const [selectedGender, setSelectedGender] = useState(selectedGenderFromApp);
   const [chartData, setChartData] = useState<ReportChartDTO[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>("No data available");
+  // const [errorMessage, setErrorMessage] = useState<string>("No data available");
 
   useEffect(() => {
     const getData = async () => {
-      console.log("selected age:", selectedAge);
       await fetchDemographicData(selectedAge, selectedGender);
     };
-    if (selectedAge || selectedGender) {
       getData();
-    } else {
-      setErrorMessage("No data available");
-    }
   }, [selectedAge, selectedGender]);
 
   const fetchDemographicData = async (age: string, gender: string) => {
     try {
-      console.log("fetching, age:", age, "gender:", gender);
-
-      let newData: ReportChartDTO[] = [];
-      newData = await getDemographicChartData(productId, age, gender);
+      // console.log("fetching, age:", age, "gender:", gender);
+      const newData: ReportChartDTO[] = await getChartDataByAgeRange(productId, age,gender);
+      // console.log("newdata:",newData);
       setChartData(newData);
     } catch (error) {
       console.error("Error fetchingg:", error);
@@ -63,12 +58,8 @@ const MainChart = ({
           onChange={(e) => setSelectedAge(e.target.value)}
           value={selectedAge}
         >
-          <option value="">-- Select age --</option>
-          {Array.from({ length: 120 }, (_, age) => (
-            <option key={age} value={age}>
-              {age}
-            </option>
-          ))}
+          <option value="-">-- Select age --</option>
+          {ageGroup.map((age) => <option key={age} value={age}>{age}</option>)}
         </select>
       </div>
       <div className="div-select-gender flex flex-col">
@@ -84,9 +75,9 @@ const MainChart = ({
           <option value="Other">Other</option>
         </select>
       </div>
-      {errorMessage && (
+      {/* {errorMessage && (
         <div className="form__error-message"> {errorMessage}</div>
-      )}
+      )} */}
       <ResponsiveContainer
         className="container-main-chart h-96 mt-6 self-center"
         width="100%"

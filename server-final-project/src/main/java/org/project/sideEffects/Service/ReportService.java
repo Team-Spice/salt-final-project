@@ -56,20 +56,28 @@ public class ReportService {
         }
     }
 
-    public List<Report> getDemographicReports(long id, int age, String gender) {
+    /*public List<Report> getDemographicReports(long id, int age, String gender) {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with id: " + id));
+
+        int lowerRange = (age / 10) * 10;
+        int upperRange = ((age + 10) / 10) * 10;
+
+        System.out.println("lowerRange = " + lowerRange);
+        System.out.println("upperRange = " + upperRange);
 
         if (age < 0 && gender.isEmpty()) {
             return reportRepo.findAllByProduct(product);
         }
         if (age >= 0 && !gender.isEmpty()) {
-            return reportRepo.findAllByAgeAndProductAndGender(age, product, gender);
+            return reportRepo.findAllByProductAndGenderAndAgeBetween(product,gender,lowerRange,upperRange);
+            //return reportRepo.findAllByAgeAndProductAndGender(age, product, gender);
         }
         if (age < 0) {
             return reportRepo.findAllByGenderAndProduct(gender, product);
         }
-        return reportRepo.findAllByAgeAndProduct(age, product);
-    }
+        return reportRepo.findAllByProductAndAgeBetween(product, lowerRange, upperRange);
+        //return reportRepo.findAllByAgeAndProduct(age, product);
+    }*/
 
     public List<Report> getProductReports(long id) {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with ID: " + id));
@@ -97,5 +105,21 @@ public class ReportService {
     public long getTotalReportsForProduct(long productId) {
         List<Report> reports = reportRepo.findByProductId(productId);
         return reports.size();
+    }
+
+    public List<Report> getReportsByAgeRange(long id, String gender, int ageFrom, int ageTo) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with id: " + id));
+        boolean validRange = ageFrom >= 0 && ageTo >= 0;
+
+        if (!validRange && gender.isEmpty()) {
+            return reportRepo.findAllByProduct(product);
+        }
+        if (validRange && gender.isEmpty()) {
+            return reportRepo.findAllByProductAndAgeBetween(product, ageFrom, ageTo);
+        }
+        if (!validRange) {
+            return reportRepo.findAllByGenderAndProduct(gender, product);
+        }
+        return reportRepo.findAllByProductAndGenderAndAgeBetween(product, gender, ageFrom, ageTo);
     }
 }
