@@ -1409,20 +1409,20 @@ html {
   margin-bottom: 1.5rem;
 }
 
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
 .mr-3 {
   margin-right: 0.75rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .flex {
@@ -1480,13 +1480,12 @@ html {
   justify-content: space-between;
 }
 
-.self-center {
-  align-self: center;
+.gap-16 {
+  gap: 4rem;
 }
 
-.bg-indigo-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+.self-center {
+  align-self: center;
 }
 
 .bg-white {
@@ -1595,13 +1594,24 @@ select:focus {
   border-bottom: 1px solid #d0006f;
 }
 
-/* Main Chart */
+/* Home */
+
+.bolded-black {
+  font-weight: bold;
+}
+
+.product-name-home {
+}
+
+.container-name-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-confirmation-home {
+}
 
 /* First Chart */
-
-/* .container-first-chart {
-  @apply w-full h-74;
-} */
 
 .input-age:focus {
   border-bottom: 1px solid #d0006f;
@@ -1656,6 +1666,8 @@ select:focus {
   font-weight: bolder;
   color: #d0006f;
 }
+
+/* Main Chart */
 
 .form__error-message {
   background-color: #f8f8f8;

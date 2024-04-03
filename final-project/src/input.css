@@ -65,13 +65,23 @@ select:focus {
   border-bottom: 1px solid #d0006f;
 }
 
-/* Main Chart */
+/* Home */
 
+.bolded-black {
+  font-weight: bold;
+}
+
+.product-name-home {
+}
+
+.container-name-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-confirmation-home {
+}
 /* First Chart */
-
-/* .container-first-chart {
-  @apply w-full h-74;
-} */
 
 .input-age:focus {
   border-bottom: 1px solid #d0006f;
@@ -115,6 +125,7 @@ select:focus {
   color: #d0006f;
 }
 
+/* Main Chart */
 .form__error-message {
   background-color: #f8f8f8;
   color: red;

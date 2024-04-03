@@ -72,21 +72,31 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
         {scannerOpen && <BarcodeScanner onScan={handleScan} />}
       </div>
       {product && !errorMessage && (
-        <div className="product-container flex flex-col mb-8">
-          <p className="product-name-home">{product.name}</p>
-          {!confirmed && (
-            <>
-              <p className="product-confirmation mt-8">
-                Is this the correct medicament?
-              </p>
-              <button
-                className="button button--primary w-fit self-center"
-                onClick={() => setConfirmed(true)}
-              >
-                Confirm
-              </button>{" "}
-            </>
-          )}
+        <div className="product-container flex flex-col mb-2 gap-16">
+          <div className="container-name-description mt-4">
+            <p className="product-name-home">
+              <span className="bolded-black">Product name:</span> {product.name}
+            </p>
+            <p className="prodcut-description-home">
+              <span className="bolded-black">Description:</span>{" "}
+              {product.description}{" "}
+            </p>
+          </div>
+          <div className="container-confirmation-home flex flex-col">
+            {!confirmed && (
+              <>
+                <p className="product-confirmation mt-6">
+                  Is this the correct medicament?
+                </p>
+                <button
+                  className="button-confirm-home button--primary w-fit self-center mt-2"
+                  onClick={() => setConfirmed(true)}
+                >
+                  Confirm
+                </button>{" "}
+              </>
+            )}
+          </div>
         </div>
       )}
       {product && confirmed && (
