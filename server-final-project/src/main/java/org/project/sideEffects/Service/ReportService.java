@@ -58,6 +58,10 @@ public class ReportService {
 
     public List<Report> getDemographicReports(long id, int age, String gender) {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No product with id: " + id));
+
+        if (age < 0 && gender.isEmpty()) {
+            return reportRepo.findAllByProduct(product);
+        }
         if (age >= 0 && !gender.isEmpty()) {
             return reportRepo.findAllByAgeAndProductAndGender(age, product, gender);
         }

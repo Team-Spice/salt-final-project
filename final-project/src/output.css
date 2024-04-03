@@ -1526,8 +1526,12 @@ select,
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 681px) {
   .h1-barcode-text {
+    display: none;
+  }
+
+  .div-camera {
     display: none;
   }
 

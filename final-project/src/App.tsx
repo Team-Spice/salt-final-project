@@ -63,16 +63,7 @@ function App() {
 
   const handleAgeAndGenderSubmit = async (age: string, gender: string) => {
     try {
-      // const id = product?.id ?? 0;
-
       await updateReport(reportId, age, gender);
-      // const responseChartData = await getDemographicChartData(
-      //   id,
-      //   parseInt(selectedAge),
-      //   genderSelected
-      // );
-
-      // setChartData(responseChartData);
       setGenderSelected(gender);
       setSelectedAge(age);
       navigate("/MainChart");

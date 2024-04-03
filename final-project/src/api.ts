@@ -13,13 +13,12 @@ export const getProduct = async (barcode: string): Promise<ResponseType<Product>
     const data: Product = await response.json();
     return { error: null, data: data };
   } catch (e: unknown) {
+    let message = "something unexpected happened";
+
     if (e instanceof Error) {
-      // const res: ResponseType<Product> = 
-      return { error: e.message, data: null };
-      // return res;
+      message = e.message;
     }
-    // console.log("something unexpected happened");
-    return { error: "something unexpected happened", data: null }
+    return { error: message, data: null }
   }
 }
 
@@ -37,7 +36,7 @@ export const getSideEffectCount = async (
     `${VITE_API_BASE_URL}/side-effect/${productId}/${sideEffectId}`
   );
   const data = await response.text();
-  console.log(data);
+  // console.log(data);
   return data;
 };
 
@@ -49,7 +48,7 @@ export const postReport = async (productId: number, sideEffectId: number) => {
     }
   );
   const data: ReportType = await response.json();
-  console.log("data " + data.id);
+  // console.log("data " + data.id);
   const reportId = data.id;
   return reportId;
 };
@@ -83,7 +82,7 @@ export const getDemographicChartData = async (
   newGender: string
 ) => {
   const age = newAge || -1;
-  console.log("age is:", age)
+  // console.log("age is:", age)
   try {
     const response = await fetch(
       `${VITE_API_BASE_URL}/reports/demographic-chart/${productId}`,

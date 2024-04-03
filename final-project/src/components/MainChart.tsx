@@ -32,9 +32,9 @@ const MainChart = ({
       console.log("selected age:", selectedAge);
       await fetchDemographicData(selectedAge, selectedGender);
     };
-    if (selectedAge || selectedGender) {
+    // if (selectedAge || selectedGender) {
       getData();
-    }
+    // }
   }, [selectedAge, selectedGender]);
 
   const fetchDemographicData = async (age: string, gender: string) => {
@@ -66,7 +66,7 @@ const MainChart = ({
             </option>
           ))}
         </select>
-      </div>{" "}
+      </div>
       <div className="div-select-gender flex flex-col">
         <label htmlFor="gender">Select Gender:</label>
         <select

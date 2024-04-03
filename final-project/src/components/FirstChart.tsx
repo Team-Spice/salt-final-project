@@ -1,6 +1,6 @@
 // import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import { updateReport } from "../api";
+// import { updateReport } from "../api";
 import FirstChartDone from "./FirstChartDone";
 import { ReportTypeAll } from "../types";
 
@@ -36,7 +36,7 @@ const FirstChart = ({
   productName,
   sideEffectName,
   count,
-  reportId,
+  // reportId,
   chartData,
   onAgeAndGenderSelected,
 }: FirstChartProps) => {
@@ -51,7 +51,7 @@ const FirstChart = ({
       return;
     }
     setErrorMessage("");
-    updateReport(reportId, age, gender);
+    // updateReport(reportId, age, gender);
     onAgeAndGenderSelected(age, gender);
   };
 
