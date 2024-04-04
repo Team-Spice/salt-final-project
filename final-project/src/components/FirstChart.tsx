@@ -54,7 +54,12 @@ const FirstChart = ({
         a side effect for <span className="bolded">{productName}</span>!
       </p>
       <FirstChartDone chartData={chartData} nameSideEffect={sideEffectName} />
-      <p>Want to see more?</p>
+      <p className="text-know-more text-l">
+        Do you want to know about side effects specific to your demographic
+        group?
+      </p>
+      <br />
+      <p>Please fill out the following fields in which you are interested</p>
       <form className="form-age-first-chart" onSubmit={handleSubmit}>
         <label htmlFor="formAge">Age</label>
         <input
