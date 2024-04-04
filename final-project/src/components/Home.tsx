@@ -77,6 +77,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
             <p className="product-name-home">
               <span className="bolded-black">Product name:</span> {product.name}
             </p>
+            <br />
             <p className="prodcut-description-home">
               <span className="bolded-black">Description:</span>{" "}
               {product.description}{" "}

@@ -1,11 +1,13 @@
-import { PieChart, Pie, ResponsiveContainer, LabelList } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, LabelList, Cell } from "recharts";
 import { ReportTypeAll } from "../types";
 
 type ChartProps = {
   chartData: ReportTypeAll[];
+  nameSideEffect: string | undefined;
 };
 
-const FirstChartDone = ({ chartData }: ChartProps) => {
+const FirstChartDone = ({ chartData, nameSideEffect }: ChartProps) => {
+  // const COLORS = ["#00C49F", "#00C49F"];
   const formattedData = chartData.map((count) => ({
     name: count.sideEffectName,
     value: count.amount,
@@ -27,6 +29,7 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
           cx="50%"
           cy="50%"
           outerRadius="47%"
+          // fill={nameSideEffect}
           fill="#d0006f"
           minAngle={20}
           label={({ name }) => `${name}`}
@@ -36,11 +39,18 @@ const FirstChartDone = ({ chartData }: ChartProps) => {
             width: "10%",
           }}
         >
+          {formattedData.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={entry.name === nameSideEffect ? "#e0be13" : "#d0006f"}
+            />
+          ))}
           <LabelList
             dataKey="value"
             position="right"
             style={{ fontSize: "10px" }}
           />
+          <h1>{nameSideEffect}</h1>
         </Pie>
       </PieChart>
     </ResponsiveContainer>
