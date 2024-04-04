@@ -1,9 +1,11 @@
 import { Product, SideEffectType } from "../types";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SideEffect from "./SideEffect";
 import BarcodeScanner from "./BarcodeScanner";
 import { getProduct } from "../api";
 import Button from "./Button";
+// import alvedon from '../assets/alvedon.webp';
+import * as images from '../assets/images';
 
 type HomeProps = {
   productList: Product[];
@@ -12,10 +14,24 @@ type HomeProps = {
 
 const Home = ({ productList, handleOnClick }: HomeProps) => {
   const [product, setProduct] = useState<Product>();
+  const [imgUrl, setImgUrl] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (product) {
+      switch (product.id) {
+        case 1:
+          setImgUrl(images.alvedon);
+          break;
+        case 2:
+          setImgUrl(images.ipren);
+          break;
+      }
+    }
+  }, [product])
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -73,7 +89,8 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
       {product && !isLoading && !errorMessage && (
         <div className="product-container flex flex-col mb-2 gap-16">
           <div className="container-name-description flex flex-col items-center">
-            <img className="h-full w-60" src={`/src/assets/${product.image}`} alt="alvedon" />
+            {/* <img className="h-full w-60" src={`/src/assets/${product.image}`} alt="alvedon" /> */}
+            <img className="h-full w-60" src={imgUrl} alt="alvedon" />
             <p className="product-name-home">
               <span className="bolded-black">Product name:</span> {product.name}
             </p>
