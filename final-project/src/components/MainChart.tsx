@@ -11,8 +11,9 @@ import {
 } from "recharts";
 import { getChartDataByAgeRange } from "../api";
 import { ReportChartDTO } from "../types";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ageGroup } from "../constants";
+import Button from "./Button";
 
 type MainChartProps = {
   productId: number;
@@ -25,17 +26,12 @@ const MainChart = ({
   selectedAgeGroup = "-",
   selectedGenderFromApp = "",
 }: MainChartProps) => {
-  const [selectedAge, setSelectedAge] = useState("-");
-  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedAge, setSelectedAge] = useState(selectedAgeGroup);
+  const [selectedGender, setSelectedGender] = useState(selectedGenderFromApp);
   const [chartData, setChartData] = useState<ReportChartDTO[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    selectedAgeGroup && setSelectedAge(selectedAgeGroup);
-    selectedAgeGroup && setSelectedGender(selectedGenderFromApp);
-  }, [selectedAgeGroup, selectedGenderFromApp])
   
   useEffect(() => {
     const getData = async () => {
@@ -46,7 +42,6 @@ const MainChart = ({
   
   const fetchDemographicData = async (age: string, gender: string) => {
     try {
-      // console.log("fetching, age:", age, "gender:", gender);
       const newData: ReportChartDTO[] = await getChartDataByAgeRange(
         productId,
         age,
@@ -61,6 +56,10 @@ const MainChart = ({
       console.error("Error fetchingg:", error);
     }
   };
+
+  const onNavigateClick = () => {
+    navigate('/')
+  }
 
   if (productId === 0) {
     navigate("/");
@@ -131,11 +130,7 @@ const MainChart = ({
           </BarChart>
         </ResponsiveContainer>
       )}
-      <Link to={"/"}>
-        <button className="button-report-new button--primary ">
-          New report
-        </button>
-      </Link>
+      <Button onClick={onNavigateClick} text="New report"/>
     </div>
   );
 };

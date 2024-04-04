@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import SideEffect from "./SideEffect";
 import BarcodeScanner from "./BarcodeScanner";
 import { getProduct } from "../api";
+import Button from "./Button";
 
 type HomeProps = {
   productList: Product[];
@@ -13,7 +14,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
   const [product, setProduct] = useState<Product>();
   const [confirmed, setConfirmed] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -30,14 +31,17 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
 
   const handleScan = async (result: string) => {
     console.log(result);
+    setIsLoading(true);
+    setErrorMessage("");
+    
     const { error, data } = await getProduct(result);
 
     if (error) {
       setErrorMessage(error);
     } else if (data) {
       setProduct(data);
-      setErrorMessage("");
     }
+    setIsLoading(false);
     setScannerOpen(false);
   };
 
@@ -62,16 +66,11 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
       </form>
       <div className="div-camera">
         <h1 className="h1-barcode-text">Scan Barcode</h1>
-        <button
-          className="camera-button button--primary"
-          onClick={() => setScannerOpen(!scannerOpen)}
-        >
-          Camera
-        </button>
-        {errorMessage && <p className="p-error">{errorMessage}</p>}
-        {scannerOpen && <BarcodeScanner onScan={handleScan} />}
+        <Button text="Camera" onClick={() => setScannerOpen(!scannerOpen)}/>
+        {errorMessage && !isLoading && <p className="p-error">{errorMessage}</p>}
+        {scannerOpen && <BarcodeScanner onScan={handleScan} loading={isLoading}/>}
       </div>
-      {product && !errorMessage && (
+      {product && !isLoading && !errorMessage && (
         <div className="product-container flex flex-col mb-2 gap-16">
           <div className="container-name-description mt-4">
             <p className="product-name-home">
@@ -89,12 +88,7 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
                 <p className="product-confirmation mt-6">
                   Is this the correct medicament?
                 </p>
-                <button
-                  className="button-confirm-home button--primary w-fit self-center mt-2"
-                  onClick={() => setConfirmed(true)}
-                >
-                  Confirm
-                </button>{" "}
+                <Button text="Confirm" onClick={() => setConfirmed(true)}/>
               </>
             )}
           </div>

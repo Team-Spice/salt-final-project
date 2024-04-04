@@ -9,12 +9,15 @@ body {
   padding-bottom: 0.5rem;
 }
 main {
-  @apply bg-white p-3 mx-2 rounded-2xl min-h-[90vh] flex flex-col gap-2;
+  @apply bg-white p-3 min-h-[90vh] flex flex-col gap-2;
   border: 1px solid #d7d7d7;
   font-family: "Helvetica Neue";
 }
 
 button {
+  display: flex;
+  justify-items: center;
+  align-items: center;
   line-height: 1.25;
   font-family: "Lexia Light Italic";
   font-style: italic;

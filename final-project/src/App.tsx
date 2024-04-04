@@ -37,15 +37,18 @@ function App() {
   }, []);
 
   const getAgeGroup = (age: string) => {
-    if (age) { 
+    if (age) {
+      const ageValue = parseInt(age);
       for (const s of ageGroup) {
         const range = s.split('-');
-        if (age >= range[0] && age <= range[1]) {
+        const lower = parseInt(range[0]);
+        const upper = parseInt(range[1]);
+        if (ageValue >= lower && ageValue <= upper) {
           return s;
         }
       }
     }
-    return '';
+    return '-';
   }
   
   const fetchProduct = async () => {
