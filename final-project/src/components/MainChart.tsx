@@ -84,7 +84,7 @@ const MainChart = ({
         </select>
       </div>
       <div className="div-select-gender flex flex-col">
-        <label htmlFor="gender">Select Gender at birth </label>
+        <label htmlFor="gender">Select gender at birth</label>
         <select
           id="gender"
           onChange={(e) => setSelectedGender(e.target.value)}
