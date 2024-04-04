@@ -32,14 +32,14 @@ const MainChart = ({
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const getData = async () => {
       await fetchDemographicData(selectedAge, selectedGender);
     };
     getData();
   }, [selectedAge, selectedGender]);
-  
+
   const fetchDemographicData = async (age: string, gender: string) => {
     try {
       const newData: ReportChartDTO[] = await getChartDataByAgeRange(
@@ -58,16 +58,16 @@ const MainChart = ({
   };
 
   const onNavigateClick = () => {
-    navigate('/')
-  }
+    navigate("/");
+  };
 
   if (productId === 0) {
     navigate("/");
   }
-  
+
   return (
     <div className="div-main-chart flex flex-col">
-      <h2 className="h2-main-chart mb-6 text-2xl">Main Chart</h2>
+      <h2 className="h2-main-chart mb-6 text-2xl">Demographic Chart</h2>
       <div className="div-select-age flex flex-col">
         <label htmlFor="age">Select Age</label>
         <select
@@ -107,7 +107,7 @@ const MainChart = ({
         >
           <BarChart
             data={chartData}
-            margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
+            margin={{ top: 15, right: 2, left: -20, bottom: 5 }}
             barCategoryGap={3}
             barSize={60}
           >
@@ -123,14 +123,14 @@ const MainChart = ({
                 style={{
                   fontSize: "10px",
                   textAlign: "center",
-                  width: "100%",
+                  width: "50%",
                 }}
               />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       )}
-      <Button onClick={onNavigateClick} text="New report"/>
+      <Button onClick={onNavigateClick} text="New report" />
     </div>
   );
 };
