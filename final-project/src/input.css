@@ -135,3 +135,30 @@ select:focus {
   margin: 20px auto;
   padding: 10px;
 }
+
+/* NAV */
+
+.banner-div {
+  background-color: #9e2062;
+}
+.banner {
+  /* height: 100%; */
+  /* width: auto; */
+  /* object-fit: cover; */
+  /* position: absolute; */
+  height: auto;
+  width: 300px;
+  /* top: 2pxpx; */
+  margin-bottom: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  /* position: fixed; */
+  align-self: center;
+  clip: rect(0px auto 90px 50px);
+  overflow: hidden;
+}
+
+.logo-scan {
+  height: 70px;
+  background: transparent !important;
+}

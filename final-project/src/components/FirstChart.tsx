@@ -47,11 +47,11 @@ const FirstChart = ({
 
   return (
     <>
-      <h2 className="text-2xl">Thank you for submitting!</h2>
+      <h2 className="text-2xl">Thank you for your help!</h2>
       <p>
-        <span className="bolded">{count}</span> other
-        people have reported <span className="bolded">{sideEffectName}</span> as
-        a side effect for <span className="bolded">{productName}</span>!
+        <span className="bolded">{count}</span> other people have reported{" "}
+        <span className="bolded">{sideEffectName}</span> as a side effect for{" "}
+        <span className="bolded">{productName}</span>!
       </p>
       <FirstChartDone chartData={chartData} nameSideEffect={sideEffectName} />
       <p className="text-know-more text-l">
@@ -59,7 +59,7 @@ const FirstChart = ({
         group?
       </p>
       <br />
-      <p>Please fill out the following fields in which you are interested</p>
+      <p>Please fill out the following fields in which you are interested.</p>
       <form className="form-age-first-chart" onSubmit={handleSubmit}>
         <label htmlFor="formAge">Age</label>
         <input
@@ -81,7 +81,12 @@ const FirstChart = ({
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
-          <Button type="submit" text="Submit" disabled={!(age || gender)} loading={isLoading} />
+          <Button
+            type="submit"
+            text="Submit"
+            disabled={!(age || gender)}
+            loading={isLoading}
+          />
           {/* {errorMessage && <p className="p--error">{errorMessage}</p>} */}
         </div>
       </form>

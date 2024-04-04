@@ -1499,11 +1499,6 @@ html {
   align-self: center;
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1686,4 +1681,32 @@ select:focus {
   max-width: 440px;
   margin: 20px auto;
   padding: 10px;
+}
+
+/* NAV */
+
+.banner-div {
+  background-color: #9e2062;
+}
+
+.banner {
+  /* height: 100%; */
+  /* width: auto; */
+  /* object-fit: cover; */
+  /* position: absolute; */
+  height: auto;
+  width: 300px;
+  /* top: 2pxpx; */
+  margin-bottom: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  /* position: fixed; */
+  align-self: center;
+  clip: rect(0px auto 90px 50px);
+  overflow: hidden;
+}
+
+.logo-scan {
+  height: 70px;
+  background: transparent !important;
 }
