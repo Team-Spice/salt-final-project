@@ -19,6 +19,8 @@ public class Product {
     @Column
     private String brand;
     @Column
+    private String image;
+    @Column
     private String description;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<SideEffect> sideEffectList;
@@ -43,6 +45,10 @@ public class Product {
 
     public String getBarcode() {
         return barcode;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public String getBrand() {

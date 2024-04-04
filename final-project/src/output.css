@@ -1425,10 +1425,6 @@ html {
   margin-bottom: 1.5rem;
 }
 
-.mt-4 {
-  margin-top: 1rem;
-}
-
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -1445,6 +1441,10 @@ html {
   height: 24rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .w-24 {
   width: 6rem;
 }
@@ -1455,6 +1455,10 @@ html {
 
 .w-5 {
   width: 1.25rem;
+}
+
+.w-60 {
+  width: 15rem;
 }
 
 .w-full {
@@ -1564,11 +1568,10 @@ button {
   min-width: -moz-fit-content;
   min-width: fit-content;
   font-size: 1rem;
-  margin: 3rem 6rem;
+  margin: 2rem;
   padding: 0.75rem 1rem;
   color: white;
   background: #d0006f;
-  /* border: 1px solid #3c4242; */
   border-radius: 5px;
   letter-spacing: 1.4px;
 }
@@ -1588,7 +1591,6 @@ select,
   background-color: #f9fafb;
   background-size: 10px;
   border: transparent;
-  /* border-bottom: 1px solid #d0006f; */
   border-bottom: 1px solid #aaa;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -1643,7 +1645,8 @@ select:focus {
   }
 
   .div-camera {
-    margin-top: 2.5rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
     display: flex;
     width: 100%;
     flex-direction: column;

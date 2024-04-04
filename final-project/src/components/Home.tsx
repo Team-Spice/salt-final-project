@@ -72,7 +72,8 @@ const Home = ({ productList, handleOnClick }: HomeProps) => {
       </div>
       {product && !isLoading && !errorMessage && (
         <div className="product-container flex flex-col mb-2 gap-16">
-          <div className="container-name-description mt-4">
+          <div className="container-name-description flex flex-col items-center">
+            <img className="h-full w-60" src={`/src/assets/${product.image}`} alt="alvedon" />
             <p className="product-name-home">
               <span className="bolded-black">Product name:</span> {product.name}
             </p>
