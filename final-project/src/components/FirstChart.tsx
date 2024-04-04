@@ -70,7 +70,7 @@ const FirstChart = ({
           min={0}
         ></input>
         <div className="div-gender-select-submit">
-          <label htmlFor="gender">Select Gender</label>
+          <label htmlFor="gender">Select Gender at birth</label>
           <select
             id="gender"
             onChange={(e) => setGender(e.target.value)}

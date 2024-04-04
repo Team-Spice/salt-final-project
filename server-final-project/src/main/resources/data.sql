@@ -399,4 +399,8 @@
 -- INSERT INTO reports (product_id, side_effect_id, age, gender) VALUES ('1', '3', '34', 'Other');
 -- INSERT INTO reports (product_id, side_effect_id, age, gender) VALUES ('1', '3', '35', 'Other');
 --
+-- UPDATE reports SET side_effect_id = 1 WHERE side_effect_id = 9 and age = 26;
+-- UPDATE reports SET side_effect_id = 8 WHERE side_effect_id = 2;
+-- UPDATE reports SET side_effect_id = 1 WHERE side_effect_id = 10;
+
 
